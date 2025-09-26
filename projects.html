@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Lucas VHH TRAN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
+            min-height: 100vh;
+        }
+        .display-font { font-family: 'Playfair Display', serif; }
+        .code-font { font-family: 'JetBrains Mono', monospace; }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .project-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .project-card:hover {
+            transform: translateY(-8px) rotateX(5deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+        .filter-btn.active {
+            background: linear-gradient(135deg, #4299e1, #38b2ac);
+            color: white;
+            transform: scale(1.05);
+        }
+        .tech-badge {
+            transition: all 0.2s ease;
+        }
+        .tech-badge:hover {
+            transform: scale(1.1);
+        }
+        .impact-metric {
+            background: linear-gradient(135deg, rgba(66, 153, 225, 0.1), rgba(56, 178, 172, 0.1));
+            border-left: 4px solid #4299e1;
+        }
+        .modal {
+            backdrop-filter: blur(10px);
+        }
+        .floating-element {
+            animation: float 8s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        .step-indicator {
+            background: linear-gradient(135deg, #4299e1, #38b2ac);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-teal-500 rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">📊</span>
+                    </div>
+                    <h1 class="display-font text-xl text-gray-800">Lucas VHH TRAN</h1>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-500 font-medium transition-colors">Portfolio</a>
+                    <a href="projects.html" class="text-blue-600 font-medium">Projects</a>
+                    <a href="blog.html" class="text-gray-700 hover:text-blue-500 font-medium transition-colors">Blog</a>
+                    <a href="CVLucasTRAN.pdf" target="_blank" class="text-gray-700 hover:text-blue-500 font-medium transition-colors flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        CV
+                    </a>
+                </div>
+                <button class="md:hidden p-2 rounded-md text-gray-700 hover:bg-white/20">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-20 pb-12 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <img src="resources/hero-data-science.jpg" alt="Projects" class="w-full h-full object-cover">
+        </div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="floating-element absolute top-20 left-10 text-3xl opacity-60">🚀</div>
+            <div class="floating-element absolute top-32 right-20 text-2xl opacity-50" style="animation-delay: -2s;">💡</div>
+            <div class="floating-element absolute bottom-20 left-1/4 text-xl opacity-40" style="animation-delay: -4s;">🔬</div>
+            
+            <h2 class="display-font text-5xl md:text-6xl text-gray-800 mb-4">
+                <span class="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
+                    Featured Projects
+                </span>
+            </h2>
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                Comprehensive data science solutions that drive business value and solve complex problems
+            </p>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <div class="flex flex-wrap justify-center gap-4">
+            <button class="filter-btn px-6 py-3 rounded-full glass-effect font-medium active" data-filter="all">
+                All Projects
+            </button>
+            <button class="filter-btn px-6 py-3 rounded-full glass-effect font-medium" data-filter="machine-learning">
+                Machine Learning
+            </button>
+            <button class="filter-btn px-6 py-3 rounded-full glass-effect font-medium" data-filter="visualization">
+                Data Visualization
+            </button>
+            <button class="filter-btn px-6 py-3 rounded-full glass-effect font-medium" data-filter="analytics">
+                Analytics
+            </button>
+            <button class="filter-btn px-6 py-3 rounded-full glass-effect font-medium" data-filter="nlp">
+                NLP
+            </button>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projectsGrid">
+            <!-- Project 1: Customer Churn Prediction -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="machine-learning" data-project="churn-prediction">
+                <img src="https://kimi-web-img.moonshot.cn/img/www.salesforceben.com/f03e871f7ff9b375d939d991e66ecc1b6c2971ef.png" alt="Customer Churn Prediction" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Customer Churn Prediction</h3>
+                <p class="text-sm text-gray-600 mb-4">Developed a machine learning model to predict customer churn with 89% accuracy, reducing customer loss by 25% through proactive retention strategies.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Python</span>
+                    <span class="tech-badge text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Scikit-learn</span>
+                    <span class="tech-badge text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Random Forest</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Model Accuracy</span>
+                        <span class="text-lg font-bold text-blue-600">89%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2: Sales Analytics Dashboard -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="visualization" data-project="sales-dashboard">
+                <img src="https://kimi-web-img.moonshot.cn/img/public.tableau.com/e669bf40111a3e83080740c82af49eee0fad88b9.png" alt="Sales Analytics Dashboard" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Interactive Sales Dashboard</h3>
+                <p class="text-sm text-gray-600 mb-4">Created a comprehensive Tableau dashboard providing real-time sales insights and forecasting capabilities for executive decision-making.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded-full">Tableau</span>
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">SQL</span>
+                    <span class="tech-badge text-xs bg-teal-100 text-teal-600 px-2 py-1 rounded-full">Data Modeling</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Decision Speed</span>
+                        <span class="text-lg font-bold text-teal-600">60% Faster</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3: Market Basket Analysis -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="analytics" data-project="market-basket">
+                <img src="https://kimi-web-img.moonshot.cn/img/assets.qlik.com/3018a0ad0c442e53fe13100e7af370e8f2862f90.png" alt="Market Basket Analysis" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Market Basket Analysis</h3>
+                <p class="text-sm text-gray-600 mb-4">Applied association rule mining to identify product relationships, increasing cross-selling revenue by 30% through targeted recommendations.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">R</span>
+                    <span class="tech-badge text-xs bg-yellow-100 text-yellow-600 px-2 py-1 rounded-full">Apriori</span>
+                    <span class="tech-badge text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Association Rules</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Revenue Increase</span>
+                        <span class="text-lg font-bold text-purple-600">30%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4: Sentiment Analysis System -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="nlp" data-project="sentiment-analysis">
+                <img src="https://kimi-web-img.moonshot.cn/img/chartio.com/2e9bff061493266c1a6f1ceedc72415e3f1c5c9b.png" alt="Sentiment Analysis" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Social Media Sentiment Analysis</h3>
+                <p class="text-sm text-gray-600 mb-4">Built an NLP pipeline to analyze customer sentiment from social media, providing real-time brand monitoring and customer insights.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Python</span>
+                    <span class="tech-badge text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">NLTK</span>
+                    <span class="tech-badge text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">BERT</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Accuracy</span>
+                        <span class="text-lg font-bold text-green-600">92%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 5: Time Series Forecasting -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="machine-learning" data-project="time-series">
+                <img src="https://kimi-web-img.moonshot.cn/img/fiverr-res.cloudinary.com/f30c7a8e6403b0e2fcf9fba421295c86d0af3b5c.jpg" alt="Time Series Forecasting" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Demand Forecasting Model</h3>
+                <p class="text-sm text-gray-600 mb-4">Developed advanced time series models to predict product demand, optimizing inventory management and reducing stockouts by 40%.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Python</span>
+                    <span class="tech-badge text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded-full">Prophet</span>
+                    <span class="tech-badge text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">LSTM</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">MAPE</span>
+                        <span class="text-lg font-bold text-orange-600">8.5%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 6: Fraud Detection System -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="machine-learning" data-project="fraud-detection">
+                <img src="https://kimi-web-img.moonshot.cn/img/canonicalized.com/32f43ba45715fb79f700ab131f0db7f9dad5ef42.png" alt="Fraud Detection" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Real-time Fraud Detection</h3>
+                <p class="text-sm text-gray-600 mb-4">Built an anomaly detection system to identify fraudulent transactions in real-time, preventing $2M+ in potential losses.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Python</span>
+                    <span class="tech-badge text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Isolation Forest</span>
+                    <span class="tech-badge text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Apache Kafka</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Fraud Prevention</span>
+                        <span class="text-lg font-bold text-red-600">$2M+</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 7: Recommendation Engine -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="machine-learning" data-project="recommendation-engine">
+                <img src="https://kimi-web-img.moonshot.cn/img/www.boldbi.com/35c2d734ac18816f9a9a7ea80f9e1c4c751cf2c8.png" alt="Recommendation Engine" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Personalized Recommendation Engine</h3>
+                <p class="text-sm text-gray-600 mb-4">Developed a collaborative filtering system to provide personalized product recommendations, increasing user engagement by 45%.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Python</span>
+                    <span class="tech-badge text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">Spark</span>
+                    <span class="tech-badge text-xs bg-yellow-100 text-yellow-600 px-2 py-1 rounded-full">Collaborative Filtering</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Engagement Increase</span>
+                        <span class="text-lg font-bold text-yellow-600">45%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 8: A/B Testing Platform -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="analytics" data-project="ab-testing">
+                <img src="https://kimi-web-img.moonshot.cn/img/www.witanalytica.com/246ba576970f44a3b99d032c329e4493d2ef044d.png" alt="A/B Testing Platform" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">A/B Testing Analytics Platform</h3>
+                <p class="text-sm text-gray-600 mb-4">Built a comprehensive A/B testing platform with statistical significance testing, enabling data-driven decision making across product teams.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">R</span>
+                    <span class="tech-badge text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Statistics</span>
+                    <span class="tech-badge text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Bayesian Methods</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Test Accuracy</span>
+                        <span class="text-lg font-bold text-green-600">95%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 9: Computer Vision System -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="machine-learning" data-project="computer-vision">
+                <img src="https://kimi-web-img.moonshot.cn/img/www.geckoboard.com/2605fd517d3e4a523710fe881153ce20c0a09c60.png" alt="Computer Vision" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Quality Control Vision System</h3>
+                <p class="text-sm text-gray-600 mb-4">Implemented a deep learning-based computer vision system for automated quality control, reducing defect detection time by 85%.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Python</span>
+                    <span class="tech-badge text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded-full">OpenCV</span>
+                    <span class="tech-badge text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">TensorFlow</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Detection Speed</span>
+                        <span class="text-lg font-bold text-orange-600">85% Faster</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack Visualization -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h3 class="display-font text-3xl text-gray-800 text-center mb-8">Technology Stack</h3>
+        <div class="glass-effect rounded-3xl p-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 text-center">
+                <div class="tech-item">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span class="text-2xl">🐍</span>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">Python</h4>
+                    <p class="text-sm text-gray-600">Primary language</p>
+                </div>
+                <div class="tech-item">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span class="text-2xl">📊</span>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">R</h4>
+                    <p class="text-sm text-gray-600">Statistical computing</p>
+                </div>
+                <div class="tech-item">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span class="text-2xl">🗄️</span>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">SQL</h4>
+                    <p class="text-sm text-gray-600">Data management</p>
+                </div>
+                <div class="tech-item">
+                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span class="text-2xl">📈</span>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">Tableau</h4>
+                    <p class="text-sm text-gray-600">Visualization</p>
+                </div>
+                <div class="tech-item">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span class="text-2xl">🧠</span>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">TensorFlow</h4>
+                    <p class="text-sm text-gray-600">Deep learning</p>
+                </div>
+                <div class="tech-item">
+                    <div class="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span class="text-2xl">⚡</span>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">Spark</h4>
+                    <p class="text-sm text-gray-600">Big data</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="fixed inset-0 bg-black bg-opacity-75 modal hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-auto">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <h3 id="modalTitle" class="text-3xl font-bold text-gray-800 mb-2"></h3>
+                        <p id="modalCategory" class="text-blue-600 font-medium"></p>
+                    </div>
+                    <button id="closeModal" class="text-gray-400 hover:text-gray-600 text-3xl">×</button>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <img id="modalImage" src="" alt="" class="w-full rounded-xl mb-4">
+                        <div id="modalTechStack" class="flex flex-wrap gap-2 mb-4"></div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-3">Project Overview</h4>
+                        <p id="modalDescription" class="text-gray-600 mb-6"></p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-3">Key Results</h4>
+                        <div id="modalResults" class="space-y-3"></div>
+                    </div>
+                </div>
+
+                <div class="border-t pt-6">
+                    <h4 class="font-semibold text-gray-800 mb-4">Methodology & Approach</h4>
+                    <div id="modalMethodology" class="space-y-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="glass-effect mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-4">
+                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-teal-500 rounded-full flex items-center justify-center">
+                    <span class="text-white font-bold">📊</span>
+                </div>
+                <h4 class="display-font text-xl text-gray-800">Lucas VHH TRAN</h4>
+            </div>
+            <p class="text-gray-600 text-sm">© 2025 Lucas VHH TRAN. Transforming data into insights, one analysis at a time.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Projects page functionality
+        class ProjectsPage {
+            constructor() {
+                this.currentFilter = 'all';
+                this.projects = this.initializeProjects();
+                this.init();
+            }
+
+            init() {
+                this.setupFilters();
+                this.setupProjectCards();
+                this.setupModal();
+                this.animateElements();
+            }
+
+            initializeProjects() {
+                return {
+                    'churn-prediction': {
+                        title: 'Customer Churn Prediction',
+                        category: 'Machine Learning',
+                        description: 'Developed a sophisticated machine learning model to predict customer churn with 89% accuracy. The system analyzes customer behavior patterns, usage data, and demographic information to identify at-risk customers before they churn.',
+                        image: 'https://kimi-web-img.moonshot.cn/img/www.salesforceben.com/f03e871f7ff9b375d939d991e66ecc1b6c2971ef.png',
+                        techStack: ['Python', 'Scikit-learn', 'Random Forest', 'XGBoost', 'Pandas'],
+                        results: [
+                            { metric: 'Model Accuracy', value: '89%', icon: '🎯' },
+                            { metric: 'Churn Reduction', value: '25%', icon: '📉' },
+                            { metric: 'Revenue Saved', value: '$1.2M', icon: '💰' }
+                        ],
+                        methodology: [
+                            {
+                                step: 1,
+                                title: 'Data Collection & Preprocessing',
+                                description: 'Gathered customer data from multiple sources including transaction history, usage patterns, and demographic information. Applied data cleaning and feature engineering techniques.'
+                            },
+                            {
+                                step: 2,
+                                title: 'Feature Engineering',
+                                description: 'Created meaningful features such as customer lifetime value, usage frequency, and engagement scores. Applied dimensionality reduction techniques to handle high-dimensional data.'
+                            },
+                            {
+                                step: 3,
+                                title: 'Model Development',
+                                description: 'Tested multiple algorithms including Random Forest, XGBoost, and Neural Networks. Used cross-validation and hyperparameter tuning to optimize model performance.'
+                            },
+                            {
+                                step: 4,
+                                title: 'Deployment & Monitoring',
+                                description: 'Deployed the model as a REST API with real-time prediction capabilities. Implemented monitoring systems to track model performance and retrain when necessary.'
+                            }
+                        ]
+                    },
+                    'sales-dashboard': {
+                        title: 'Interactive Sales Analytics Dashboard',
+                        category: 'Data Visualization',
+                        description: 'Created a comprehensive Tableau dashboard providing real-time sales insights and forecasting capabilities. The dashboard enables executives to make data-driven decisions quickly and effectively.',
+                        image: 'https://kimi-web-img.moonshot.cn/img/public.tableau.com/e669bf40111a3e83080740c82af49eee0fad88b9.png',
+                        techStack: ['Tableau', 'SQL', 'Data Modeling', 'ETL', 'AWS'],
+                        results: [
+                            { metric: 'Decision Speed', value: '60% Faster', icon: '⚡' },
+                            { metric: 'Data Accessibility', value: '100%', icon: '📊' },
+                            { metric: 'User Adoption', value: '95%', icon: '👥' }
+                        ],
+                        methodology: [
+                            {
+                                step: 1,
+                                title: 'Requirements Analysis',
+                                description: 'Conducted stakeholder interviews to understand business requirements and key performance indicators. Defined user personas and use cases.'
+                            },
+                            {
+                                step: 2,
+                                title: 'Data Architecture Design',
+                                description: 'Designed a scalable data architecture using cloud services. Implemented ETL processes to ensure data quality and consistency.'
+                            },
+                            {
+                                step: 3,
+                                title: 'Dashboard Development',
+                                description: 'Created interactive visualizations with drill-down capabilities. Implemented real-time data updates and automated reporting features.'
+                            },
+                            {
+                                step: 4,
+                                title: 'Training & Deployment',
+                                description: 'Provided comprehensive training to end users and established governance processes. Monitored usage patterns and gathered feedback for continuous improvement.'
+                            }
+                        ]
+                    },
+                    'market-basket': {
+                        title: 'Market Basket Analysis',
+                        category: 'Data Analytics',
+                        description: 'Applied association rule mining to identify product relationships and purchasing patterns. The analysis revealed valuable insights for cross-selling and upselling strategies.',
+                        image: 'https://kimi-web-img.moonshot.cn/img/assets.qlik.com/3018a0ad0c442e53fe13100e7af370e8f2862f90.png',
+                        techStack: ['R', 'Apriori', 'Association Rules', 'Data Mining', 'Statistical Analysis'],
+                        results: [
+                            { metric: 'Revenue Increase', value: '30%', icon: '📈' },
+                            { metric: 'Cross-sell Rate', value: '45% Higher', icon: '🛒' },
+                            { metric: 'Customer Insights', value: '150+ Rules', icon: '💡' }
+                        ],
+                        methodology: [
+                            {
+                                step: 1,
+                                title: 'Transaction Data Analysis',
+                                description: 'Analyzed transaction data to understand purchasing patterns and product combinations. Identified high-frequency itemsets and association rules.'
+                            },
+                            {
+                                step: 2,
+                                title: 'Algorithm Implementation',
+                                description: 'Implemented the Apriori algorithm to discover frequent itemsets and generate association rules with appropriate support and confidence thresholds.'
+                            },
+                            {
+                                step: 3,
+                                title: 'Rule Validation',
+                                description: 'Validated discovered rules using statistical significance testing and business domain knowledge. Filtered out spurious correlations.'
+                            },
+                            {
+                                step: 4,
+                                title: 'Recommendation System',
+                                description: 'Developed a real-time recommendation engine based on the discovered rules. Implemented A/B testing to measure the impact on sales.'
+                            }
+                        ]
+                    }
+                };
+            }
+
+            setupFilters() {
+                const filterButtons = document.querySelectorAll('.filter-btn');
+                filterButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        // Update active button
+                        filterButtons.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        
+                        // Filter projects
+                        this.currentFilter = btn.dataset.filter;
+                        this.filterProjects();
+                    });
+                });
+            }
+
+            setupProjectCards() {
+                const projectCards = document.querySelectorAll('.project-card');
+                projectCards.forEach(card => {
+                    card.addEventListener('click', () => {
+                        const projectId = card.dataset.project;
+                        this.openModal(projectId);
+                    });
+                });
+            }
+
+            setupModal() {
+                const modal = document.getElementById('projectModal');
+                const closeBtn = document.getElementById('closeModal');
+
+                closeBtn.addEventListener('click', () => {
+                    modal.classList.add('hidden');
+                });
+
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.add('hidden');
+                    }
+                });
+            }
+
+            filterProjects() {
+                const projects = document.querySelectorAll('.project-card');
+                
+                projects.forEach(project => {
+                    const category = project.dataset.category;
+                    const shouldShow = this.currentFilter === 'all' || category === this.currentFilter;
+                    
+                    if (shouldShow) {
+                        project.style.display = 'block';
+                        anime({
+                            targets: project,
+                            opacity: [0, 1],
+                            scale: [0.8, 1],
+                            duration: 600,
+                            easing: 'easeOutElastic(1, .8)'
+                        });
+                    } else {
+                        anime({
+                            targets: project,
+                            opacity: [1, 0],
+                            scale: [1, 0.8],
+                            duration: 300,
+                            complete: () => {
+                                project.style.display = 'none';
+                            }
+                        });
+                    }
+                });
+            }
+
+            openModal(projectId) {
+                const project = this.projects[projectId];
+                if (!project) return;
+
+                const modal = document.getElementById('projectModal');
+                
+                // Update modal content
+                document.getElementById('modalTitle').textContent = project.title;
+                document.getElementById('modalCategory').textContent = project.category;
+                document.getElementById('modalImage').src = project.image;
+                document.getElementById('modalImage').alt = project.title;
+                document.getElementById('modalDescription').textContent = project.description;
+
+                // Update tech stack
+                const techStackContainer = document.getElementById('modalTechStack');
+                techStackContainer.innerHTML = '';
+                project.techStack.forEach(tech => {
+                    const badge = document.createElement('span');
+                    badge.className = 'tech-badge text-xs bg-blue-100 text-blue-600 px-3 py-1 rounded-full';
+                    badge.textContent = tech;
+                    techStackContainer.appendChild(badge);
+                });
+
+                // Update results
+                const resultsContainer = document.getElementById('modalResults');
+                resultsContainer.innerHTML = '';
+                project.results.forEach(result => {
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = 'impact-metric p-3 rounded-lg';
+                    resultDiv.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-gray-700">${result.metric}</span>
+                            <span class="text-lg font-bold text-blue-600">${result.value}</span>
+                        </div>
+                    `;
+                    resultsContainer.appendChild(resultDiv);
+                });
+
+                // Update methodology
+                const methodologyContainer = document.getElementById('modalMethodology');
+                methodologyContainer.innerHTML = '';
+                project.methodology.forEach(step => {
+                    const stepDiv = document.createElement('div');
+                    stepDiv.className = 'flex items-start space-x-4';
+                    stepDiv.innerHTML = `
+                        <div class="step-indicator">${step.step}</div>
+                        <div>
+                            <h5 class="font-semibold text-gray-800 mb-2">${step.title}</h5>
+                            <p class="text-gray-600">${step.description}</p>
+                        </div>
+                    `;
+                    methodologyContainer.appendChild(stepDiv);
+                });
+
+                // Show modal
+                modal.classList.remove('hidden');
+                
+                // Animate modal appearance
+                anime({
+                    targets: modal.querySelector('.bg-white'),
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 400,
+                    easing: 'easeOutElastic(1, .8)'
+                });
+            }
+
+            animateElements() {
+                // Animate project cards
+                anime({
+                    targets: '.project-card',
+                    translateY: [50, 0],
+                    opacity: [0, 1],
+                    delay: anime.stagger(100),
+                    duration: 800,
+                    easing: 'easeOutElastic(1, .8)'
+                });
+
+                // Animate filter buttons
+                anime({
+                    targets: '.filter-btn',
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    delay: anime.stagger(50),
+                    duration: 600,
+                    easing: 'easeOutElastic(1, .8)'
+                });
+
+                // Animate tech stack
+                anime({
+                    targets: '.tech-item',
+                    translateY: [30, 0],
+                    opacity: [0, 1],
+                    delay: anime.stagger(100, {start: 1000}),
+                    duration: 600,
+                    easing: 'easeOutElastic(1, .8)'
+                });
+
+                // Floating animation for decorative elements
+                anime({
+                    targets: '.floating-element',
+                    translateY: [-10, 10],
+                    rotate: [-2, 2],
+                    duration: 4000,
+                    direction: 'alternate',
+                    loop: true,
+                    easing: 'easeInOutSine'
+                });
+            }
+        }
+
+        // Initialize projects page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ProjectsPage();
+        });
+    </script>
+</body>
+</html>

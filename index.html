@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Scientist Portfolio - Lucas VHH TRAN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
+            min-height: 100vh;
+        }
+        .display-font { font-family: 'Playfair Display', serif; }
+        .code-font { font-family: 'JetBrains Mono', monospace; }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .data-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .data-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        .chart-container {
+            min-height: 400px;
+        }
+        .skill-item {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .skill-item:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #4299e1, #38b2ac);
+        }
+        .floating-data {
+            animation: float 8s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid #4299e1;
+            white-space: nowrap;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #4299e1; }
+        }
+        #particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .metric-card {
+            background: linear-gradient(135deg, rgba(66, 153, 225, 0.1), rgba(56, 178, 172, 0.1));
+            border-left: 4px solid #4299e1;
+        }
+        .contact-form {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <!-- Background Particles -->
+    <div id="particles-canvas"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-teal-500 rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">📊</span>
+                    </div>
+                    <h1 class="display-font text-xl text-gray-800">Lucas VHH TRAN</h1>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-blue-600 font-medium">Portfolio</a>
+                    <a href="projects.html" class="text-gray-700 hover:text-blue-500 font-medium transition-colors">Projects</a>
+                    <a href="blog.html" class="text-gray-700 hover:text-blue-500 font-medium transition-colors">Blog</a>
+                    <a href="CVLucasTRAN.pdf" target="_blank" class="text-gray-700 hover:text-blue-500 font-medium transition-colors flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        CV
+                    </a>
+                </div>
+                <button class="md:hidden p-2 rounded-md text-gray-700 hover:bg-white/20">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-20 pb-8 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-30">
+            <img src="resources/hero-data-science.jpg" alt="Data Science" class="w-full h-full object-cover">
+        </div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="floating-data absolute top-10 left-10 text-2xl opacity-60">📈</div>
+                    <div class="floating-data absolute top-20 right-20 text-xl opacity-50" style="animation-delay: -2s;">🔬</div>
+                    <div class="floating-data absolute bottom-10 left-1/4 text-lg opacity-40" style="animation-delay: -4s;">💡</div>
+                    
+                    <h2 class="display-font text-4xl lg:text-5xl text-gray-800 mb-4">
+                        <span class="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
+                            Biostatistician & Data Scientist
+                        </span>
+                    </h2>
+                    <div class="typewriter text-xl text-gray-600 mb-6">
+                        Transforming Medical Data into Clinical Insights
+                    </div>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        With over 10 years of experience, I specialize in biostatistics and bioinformatics, with a focus on biomarker discovery using multi-omics datasets. 
+                        At CK-CARE, I contribute to data management and the development of advanced analysis pipelines, leveraging statistical, machine learning, and deep learning techniques 
+                        to uncover actionable insights for disease diagnostics and treatment.
+                    </p>
+                    <p class="text-base text-gray-600 mb-6 leading-relaxed">
+                        Collaborating with interdisciplinary teams of biologists, clinicians, and engineers, I aim to translate complex data into meaningful solutions. 
+                        My expertise spans data management, machine learning, and cloud platforms like AWS, aligning with my mission to advance healthcare through innovative data-driven approaches.
+                    </p>
+                    <div class="flex flex-wrap gap-4 mb-6">
+                        <div class="metric-card px-4 py-2 rounded-lg">
+                            <div class="text-2xl font-bold text-blue-600">10+</div>
+                            <div class="text-sm text-gray-600">Years Experience</div>
+                        </div>
+                        <div class="metric-card px-4 py-2 rounded-lg">
+                            <div class="text-2xl font-bold text-teal-600">5</div>
+                            <div class="text-sm text-gray-600">Major Positions</div>
+                        </div>
+                        <div class="metric-card px-4 py-2 rounded-lg">
+                            <div class="text-2xl font-bold text-purple-600">316</div>
+                            <div class="text-sm text-gray-600">LinkedIn Followers</div>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="CVLucasTRAN.pdf" download="Lucas_TRAN_CV.pdf" class="inline-flex items-center bg-gradient-to-r from-blue-500 to-teal-500 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all hover:scale-105">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            Download CV
+                        </a>
+                        <a href="CVLucasTRAN.pdf" target="_blank" class="inline-flex items-center bg-white text-gray-700 px-6 py-3 rounded-lg font-medium border border-gray-300 hover:bg-gray-50 transition-all hover:scale-105">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                            View CV
+                        </a>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <img src="profile-photo.jpeg" alt="Lucas VHH TRAN" class="w-64 h-64 rounded-full object-cover shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Data Visualization Dashboard -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h3 class="display-font text-3xl text-gray-800 text-center mb-8">Interactive Data Dashboard</h3>
+        <div class="grid grid-cols-12 gap-6 h-[600px]">
+            <!-- Left Control Panel -->
+            <div class="col-span-3 glass-effect rounded-2xl p-6">
+                <h4 class="font-semibold text-gray-800 mb-4">Dataset Selector</h4>
+                <div class="space-y-3 mb-6">
+                    <button class="dataset-btn w-full p-3 rounded-lg bg-blue-50 hover:bg-blue-100 text-left transition-colors active" data-dataset="geneDisease">
+                        🧬 Gene-Disease Associations
+                    </button>
+                    <button class="dataset-btn w-full p-3 rounded-lg bg-blue-50 hover:bg-blue-100 text-left transition-colors" data-dataset="biomarker">
+                        � Biomarker Expression
+                    </button>
+                    <button class="dataset-btn w-full p-3 rounded-lg bg-blue-50 hover:bg-blue-100 text-left transition-colors" data-dataset="survival">
+                        ⏱️ Survival Analysis
+                    </button>
+                </div>
+
+                <h4 class="font-semibold text-gray-800 mb-4">Chart Type</h4>
+                <div class="space-y-3 mb-6">
+                    <button class="chart-btn w-full p-3 rounded-lg bg-teal-50 hover:bg-teal-100 text-left transition-colors active" data-chart="scatter">
+                        ⚪ Scatter Plot
+                    </button>
+                    <button class="chart-btn w-full p-3 rounded-lg bg-teal-50 hover:bg-teal-100 text-left transition-colors" data-chart="bar">
+                        📊 Bar Chart
+                    </button>
+                    <button class="chart-btn w-full p-3 rounded-lg bg-teal-50 hover:bg-teal-100 text-left transition-colors" data-chart="line">
+                        📈 Line Chart
+                    </button>
+                    <button class="chart-btn w-full p-3 rounded-lg bg-teal-50 hover:bg-teal-100 text-left transition-colors" data-chart="heatmap">
+                        🔥 Heatmap
+                    </button>
+                </div>
+
+                <h4 class="font-semibold text-gray-800 mb-4">Analysis</h4>
+                <div class="space-y-2">
+                    <button id="correlationBtn" class="w-full p-2 rounded-lg bg-purple-50 hover:bg-purple-100 text-sm transition-colors">
+                        📊 Association Test
+                    </button>
+                    <button id="regressionBtn" class="w-full p-2 rounded-lg bg-purple-50 hover:bg-purple-100 text-sm transition-colors">
+                        📈 Cox Regression
+                    </button>
+                    <button id="clusterBtn" class="w-full p-2 rounded-lg bg-purple-50 hover:bg-purple-100 text-sm transition-colors">
+                        🎯 ROC Analysis
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Chart Area -->
+            <div class="col-span-6 glass-effect rounded-2xl p-6">
+                <div class="chart-container" id="mainChart"></div>
+            </div>
+
+            <!-- Right Insights Panel -->
+            <div class="col-span-3 glass-effect rounded-2xl p-6">
+                <h4 class="font-semibold text-gray-800 mb-4">Data Insights</h4>
+                <div id="insightsContent" class="space-y-4">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h5 class="font-medium text-blue-800 mb-2">High Risk Variants</h5>
+                        <p class="text-sm text-blue-700">KRAS and MYC show strongest association with disease risk (OR > 3.0).</p>
+                    </div>
+                    <div class="bg-teal-50 p-4 rounded-lg">
+                        <h5 class="font-medium text-teal-800 mb-2">Protective Effects</h5>
+                        <p class="text-sm text-teal-700">CFTR variants demonstrate protective association in this population.</p>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h5 class="font-medium text-purple-800 mb-2">Statistical Significance</h5>
+                        <p class="text-sm text-purple-700">8 out of 12 gene variants show genome-wide significant associations (p < 5×10⁻⁸).</p>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <h4 class="font-semibold text-gray-800 mb-4">Export Options</h4>
+                    <div class="space-y-2">
+                        <button id="exportPNG" class="w-full p-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm transition-colors">
+                            📷 Export as PNG
+                        </button>
+                        <button id="exportSVG" class="w-full p-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm transition-colors">
+                            🎨 Export as SVG
+                        </button>
+                        <button id="shareLink" class="w-full p-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm transition-colors">
+                            🔗 Share Link
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Radar Chart -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h3 class="display-font text-3xl text-gray-800 text-center mb-8">Technical Skills</h3>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="glass-effect rounded-2xl p-8">
+                <div class="chart-container" id="skillsChart"></div>
+            </div>
+            <div class="space-y-6">
+                <div class="skill-item glass-effect rounded-xl p-6" data-skill="machine-learning">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-semibold text-gray-800">Machine Learning</h4>
+                        <span class="text-blue-600 font-bold">95%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-blue-500 to-teal-500 h-2 rounded-full" style="width: 95%"></div>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">Random Forest, SVM, Neural Networks, Deep Learning</p>
+                </div>
+
+                <div class="skill-item glass-effect rounded-xl p-6" data-skill="statistics">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-semibold text-gray-800">Statistics</h4>
+                        <span class="text-teal-600 font-bold">98%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-teal-500 to-green-500 h-2 rounded-full" style="width: 98%"></div>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">Hypothesis Testing, Regression, Bayesian Methods</p>
+                </div>
+
+                <div class="skill-item glass-effect rounded-xl p-6" data-skill="data-viz">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-semibold text-gray-800">Data Visualization</h4>
+                        <span class="text-purple-600 font-bold">92%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full" style="width: 92%"></div>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">Tableau, D3.js, ggplot2, Plotly</p>
+                </div>
+
+                <div class="skill-item glass-effect rounded-xl p-6" data-skill="programming">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-semibold text-gray-800">Programming</h4>
+                        <span class="text-orange-600 font-bold">90%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-orange-500 to-red-500 h-2 rounded-full" style="width: 90%"></div>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">Python, R, SQL, JavaScript</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CV Highlights Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h3 class="display-font text-3xl text-gray-800 text-center mb-8">Professional Experience</h3>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Experience Timeline -->
+            <div class="glass-effect rounded-2xl p-8">
+                <h4 class="font-semibold text-gray-800 mb-6 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 00-2 2H8a2 2 0 00-2-2V6m8 0h2a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2h2"></path>
+                    </svg>
+                    Work Experience
+                </h4>
+                <div class="space-y-6">
+                    <!-- Current Position - CK-CARE -->
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h5 class="font-medium text-gray-800">Biostatistician/Bioinformatician</h5>
+                            <span class="text-sm text-gray-500">Nov 2022 - Present</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2">CK-CARE, Christine Kühne - Center for Allergy Research and Education</p>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>• Managed and analyzed diverse omics datasets, including genomics, transcriptomics, and proteomics</li>
+                            <li>• Developed and implemented data analysis pipelines utilizing advanced statistical and machine learning techniques</li>
+                            <li>• Collaborated with biologists, clinicians, and engineers to translate findings into actionable insights for disease diagnosis and treatment</li>
+                            <li>• Contributed to biomarker discovery using multi-omics datasets for allergy research</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Sanofi Position -->
+                    <div class="border-l-4 border-teal-500 pl-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h5 class="font-medium text-gray-800">Biomarker Statistician - Oncology Early Phase</h5>
+                            <span class="text-sm text-gray-500">Apr 2022 - Oct 2022</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2">Sanofi-Aventis France S.A. - Biostatistics & Programming, Paris</p>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>• Leveraged statistical and machine learning techniques to support drug discovery and development in oncology</li>
+                            <li>• Conducted data quality control and reviewed statistical analysis plans (SAP) to ensure accuracy</li>
+                            <li>• Developed R packages and performed data analysis for the Oncology Biomarker R&D team</li>
+                            <li>• Communicated effectively with principal investigators and stakeholders to facilitate project objectives</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- ENDODIAG Position -->
+                    <div class="border-l-4 border-purple-500 pl-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h5 class="font-medium text-gray-800">Data Scientist</h5>
+                            <span class="text-sm text-gray-500">May 2020 - Feb 2022</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2">ENDODIAG, Paris, France</p>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>• Employed advanced statistical and AI techniques, including machine learning and deep learning, to analyze high-dimensional biomedical data</li>
+                            <li>• Investigated biomarkers associated with endometriosis to enhance diagnostic accuracy and patient management</li>
+                            <li>• Collaborated with healthcare professionals to develop innovative diagnostic solutions aimed at reducing diagnosis delay</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- INSERM Position -->
+                    <div class="border-l-4 border-orange-500 pl-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h5 class="font-medium text-gray-800">Research Study Assistant</h5>
+                            <span class="text-sm text-gray-500">Nov 2018 - Nov 2019</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2">INSERM, Bordeaux Area, France</p>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>• Assisted in analyzing clinical trial data using various statistical tools, including single cell and flow cytometry techniques</li>
+                            <li>• Collaborated closely with Dr. Boris Hejblum at INRIA Bordeaux, enhancing research methodologies</li>
+                            <li>• Contributed to the understanding of complex biological data, supporting advancements in medical research</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Professional Links -->
+                <div class="mt-6 pt-4 border-t border-gray-200">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-sm font-medium text-gray-700">Connect with me professionally:</span>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="https://www.linkedin.com/in/lucas-vh-t-b9836283" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn
+                        </a>
+                        <a href="https://github.com/vanhungtran/" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-gray-800 text-sm font-medium flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            GitHub
+                        </a>
+                        <a href="https://rpubs.com/hung/" target="_blank" rel="noopener noreferrer" class="text-purple-600 hover:text-purple-800 text-sm font-medium flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            RPubs
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education & Certifications -->
+            <div class="glass-effect rounded-2xl p-8">
+                <h4 class="font-semibold text-gray-800 mb-6 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                    </svg>
+                    Education & Certifications
+                </h4>
+                <div class="space-y-6">
+                    <div class="border-l-4 border-purple-500 pl-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h5 class="font-medium text-gray-800">PhD in Pathology, Toxicology, Genetics and Nutrition</h5>
+                            <span class="text-sm text-gray-500">2015 - 2018</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2">Toulouse INP</p>
+                        <p class="text-sm text-gray-700">Specialization in Biostatistics/Bioinformatics/Quantitative Genetics</p>
+                    </div>
+                    <div class="border-l-4 border-orange-500 pl-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h5 class="font-medium text-gray-800">Master's in Biostatistics, Biomathematics, Bioinformatics</h5>
+                            <span class="text-sm text-gray-500">2014 - 2015</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2">Université Claude Bernard Lyon 1</p>
+                        <p class="text-sm text-gray-700">Grade: Mention Bien - Focus on Healthcare Applications</p>
+                    </div>
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h5 class="font-medium text-gray-800">Professional Certifications</h5>
+                            <span class="text-sm text-gray-500">Ongoing</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2">Amazon Web Services (AWS) & GCP</p>
+                        <p class="text-sm text-gray-700">Cloud platforms for data science and machine learning applications</p>
+                    </div>
+                </div>
+                
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-gray-700">Want to see the complete CV?</span>
+                        <a href="CVLucasTRAN.pdf" download="Lucas_TRAN_CV.pdf" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3"></path>
+                            </svg>
+                            Download PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RPubs Showcase -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h3 class="display-font text-3xl text-gray-800 text-center mb-8">Published Statistical Reports</h3>
+        <div class="glass-effect rounded-3xl p-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2">
+                    <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                        <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        R Markdown Publications on RPubs
+                    </h4>
+                    <p class="text-gray-600 mb-6">
+                        Explore my collection of statistical analysis reports and biostatistics tutorials published on RPubs. 
+                        These interactive documents demonstrate practical applications of statistical methods using R, 
+                        featuring reproducible research workflows and detailed methodology explanations.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <h5 class="font-medium text-blue-800 mb-2">📊 Clinical Data Analysis</h5>
+                            <p class="text-sm text-blue-700">Statistical methods for medical research including survival analysis and clinical trial design</p>
+                        </div>
+                        <div class="bg-teal-50 rounded-lg p-4">
+                            <h5 class="font-medium text-teal-800 mb-2">🔬 Biostatistics Methods</h5>
+                            <p class="text-sm text-teal-700">Advanced statistical techniques for biological and health sciences applications</p>
+                        </div>
+                        <div class="bg-purple-50 rounded-lg p-4">
+                            <h5 class="font-medium text-purple-800 mb-2">📈 Data Visualization</h5>
+                            <p class="text-sm text-purple-700">Creating publication-quality graphics and interactive visualizations with R</p>
+                        </div>
+                        <div class="bg-orange-50 rounded-lg p-4">
+                            <h5 class="font-medium text-orange-800 mb-2">🧬 Genomic Analysis</h5>
+                            <p class="text-sm text-orange-700">Statistical methods for high-dimensional genomic and bioinformatics data</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center justify-center text-center">
+                    <div class="bg-gradient-to-br from-blue-100 to-teal-100 rounded-2xl p-6 mb-6">
+                        <div class="text-5xl mb-4">📚</div>
+                        <h5 class="font-semibold text-gray-800 mb-2">RPubs Profile</h5>
+                        <p class="text-sm text-gray-600">Interactive R Markdown reports and tutorials</p>
+                    </div>
+                    <a href="https://rpubs.com/hung/" target="_blank" class="inline-flex items-center bg-gradient-to-r from-blue-500 to-teal-500 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all hover:scale-105 mb-2">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        View Publications
+                    </a>
+                    <p class="text-xs text-gray-500">rpubs.com/hung</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Projects Preview -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h3 class="display-font text-3xl text-gray-800 text-center mb-8">Featured Projects</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="data-card glass-effect rounded-2xl p-6">
+                <img src="https://kimi-web-img.moonshot.cn/img/www.salesforceben.com/f03e871f7ff9b375d939d991e66ecc1b6c2971ef.png" alt="Customer Churn Prediction" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h4 class="font-semibold text-gray-800 mb-2">Customer Churn Prediction</h4>
+                <p class="text-sm text-gray-600 mb-4">Built a machine learning model to predict customer churn with 89% accuracy, reducing customer loss by 25%.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Machine Learning</span>
+                    <span class="text-xs text-gray-500">Python, Scikit-learn</span>
+                </div>
+            </div>
+
+            <div class="data-card glass-effect rounded-2xl p-6">
+                <img src="https://kimi-web-img.moonshot.cn/img/public.tableau.com/e669bf40111a3e83080740c82af49eee0fad88b9.png" alt="Sales Analytics Dashboard" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h4 class="font-semibold text-gray-800 mb-2">Sales Analytics Dashboard</h4>
+                <p class="text-sm text-gray-600 mb-4">Interactive Tableau dashboard providing real-time sales insights and forecasting for executive decision-making.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs bg-teal-100 text-teal-600 px-2 py-1 rounded-full">Data Visualization</span>
+                    <span class="text-xs text-gray-500">Tableau, SQL</span>
+                </div>
+            </div>
+
+            <div class="data-card glass-effect rounded-2xl p-6">
+                <img src="https://kimi-web-img.moonshot.cn/img/assets.qlik.com/3018a0ad0c442e53fe13100e7af370e8f2862f90.png" alt="Market Basket Analysis" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h4 class="font-semibold text-gray-800 mb-2">Market Basket Analysis</h4>
+                <p class="text-sm text-gray-600 mb-4">Applied association rule mining to identify product relationships, increasing cross-selling revenue by 30%.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Data Mining</span>
+                    <span class="text-xs text-gray-500">R, Apriori</span>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-8">
+            <a href="projects.html" class="inline-block bg-gradient-to-r from-blue-500 to-teal-500 text-white px-8 py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                View All Projects
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="contact-form rounded-3xl p-8">
+            <h3 class="display-font text-3xl text-gray-800 text-center mb-8">Let's Connect</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-4">Get In Touch</h4>
+                    <p class="text-gray-600 mb-6">
+                        Interested in collaborating on data science projects? Have a challenging problem to solve? 
+                        I'd love to hear from you.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-blue-500">📧</span>
+                            <span class="text-gray-700">lucas.tran@datascientist.com</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-blue-500">💼</span>
+                            <span class="text-gray-700">LinkedIn: /in/lucasvhhtran</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-blue-500">🐦</span>
+                            <span class="text-gray-700">Twitter: @lucasvhhtran</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-blue-500">�</span>
+                            <a href="mailto:tranhungydhcm@gmail.com" class="text-blue-600 hover:text-blue-800 transition-colors">tranhungydhcm@gmail.com</a>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-blue-500">🐙</span>
+                            <a href="https://github.com/vanhungtran/" target="_blank" class="text-blue-600 hover:text-blue-800 transition-colors">GitHub: /vanhungtran</a>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-blue-500">📄</span>
+                            <a href="CVLucasTRAN.pdf" download="Lucas_TRAN_CV.pdf" class="text-blue-600 hover:text-blue-800 transition-colors">Download CV</a>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-blue-500">📊</span>
+                            <a href="https://rpubs.com/hung/" target="_blank" class="text-blue-600 hover:text-blue-800 transition-colors">RPubs Portfolio</a>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                        <a href="CVLucasTRAN.pdf" target="_blank" class="inline-flex items-center justify-center w-full bg-gradient-to-r from-blue-500 to-teal-500 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all mb-4">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                            View My Complete CV
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <form id="contactForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                            <input type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-teal-500 text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="glass-effect mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-4">
+                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-teal-500 rounded-full flex items-center justify-center">
+                    <span class="text-white font-bold">📊</span>
+                </div>
+                <h4 class="display-font text-xl text-gray-800">Lucas VHH TRAN</h4>
+            </div>
+            <p class="text-gray-600 text-sm">© 2025 Lucas VHH TRAN. Transforming data into insights, one analysis at a time.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLINK Clinical Trial Report - Lucas VHH TRAN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
+            min-height: 100vh;
+        }
+        .display-font { font-family: 'Playfair Display', serif; }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        iframe {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="glass-effect sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="display-font text-xl font-bold text-gray-800">Lucas VHH TRAN</a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-sm text-gray-600">Biostatistician & Data Scientist</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="text-gray-600 hover:text-gray-800 transition-colors">Home</a>
+                    <a href="blog.html" class="text-gray-600 hover:text-gray-800 transition-colors">Blog</a>
+                    <a href="projects.html" class="text-gray-600 hover:text-gray-800 transition-colors">Projects</a>
+                    <a href="gallery.html" class="text-gray-600 hover:text-gray-800 transition-colors">Gallery</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="glass-effect rounded-3xl p-8 text-center">
+            <h1 class="display-font text-4xl text-gray-800 mb-4">OLINK Proteomic Analysis</h1>
+            <h2 class="text-2xl text-gray-600 mb-4">AMD115 Clinical Trial in Atopic Dermatitis</h2>
+            <p class="text-lg text-gray-700 max-w-4xl mx-auto mb-6">
+                Comprehensive biostatistical analysis of OLINK proteomics data from a randomized, double-blind, 
+                placebo-controlled clinical trial evaluating AMD115 in healthy subjects and patients with 
+                moderate-to-severe atopic dermatitis.
+            </p>
+            <div class="flex flex-wrap justify-center gap-3 mb-6">
+                <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">Clinical Trials</span>
+                <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">OLINK Proteomics</span>
+                <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">Mixed-Effects Models</span>
+                <span class="px-3 py-1 bg-orange-100 text-orange-600 rounded-full text-sm">Biostatistics</span>
+                <span class="px-3 py-1 bg-teal-100 text-teal-600 rounded-full text-sm">R Analysis</span>
+            </div>
+            <div class="flex justify-center space-x-4">
+                <button onclick="toggleFullscreen()" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                    📺 Full Screen
+                </button>
+                <a href="https://vanhungtran.github.io/report/" target="_blank" class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+                    🔗 Open in New Tab
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Report Iframe -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <div class="glass-effect rounded-3xl p-4">
+            <iframe 
+                id="reportFrame"
+                src="https://vanhungtran.github.io/report/" 
+                width="100%" 
+                height="800px"
+                loading="lazy"
+                title="OLINK Clinical Trial Analysis Report">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- Key Highlights -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <div class="glass-effect rounded-3xl p-8">
+            <h3 class="display-font text-2xl text-gray-800 mb-6 text-center">Key Analysis Highlights</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="text-3xl text-blue-600 font-bold mb-2">184</div>
+                    <div class="text-sm text-gray-600">Protein Targets</div>
+                    <div class="text-xs text-gray-500 mt-1">From 2 OLINK panels</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl text-green-600 font-bold mb-2">97</div>
+                    <div class="text-sm text-gray-600">Clinical Samples</div>
+                    <div class="text-xs text-gray-500 mt-1">Across 5 timepoints</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl text-purple-600 font-bold mb-2">3</div>
+                    <div class="text-sm text-gray-600">Treatment Groups</div>
+                    <div class="text-xs text-gray-500 mt-1">AMD115 vs Placebo</div>
+                </div>
+            </div>
+            
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 rounded-lg p-4">
+                    <h4 class="font-semibold text-blue-800 mb-2">🔬 Statistical Methods</h4>
+                    <ul class="text-sm text-blue-700 space-y-1">
+                        <li>• Linear Mixed-Effects Models (LME4)</li>
+                        <li>• Principal Component Analysis (PCA)</li>
+                        <li>• Data Quality Control with OlinkAnalyze</li>
+                        <li>• Multiple Comparison Correction</li>
+                    </ul>
+                </div>
+                <div class="bg-green-50 rounded-lg p-4">
+                    <h4 class="font-semibold text-green-800 mb-2">📊 Key Findings</h4>
+                    <ul class="text-sm text-green-700 space-y-1">
+                        <li>• 7 significantly different proteins identified</li>
+                        <li>• Protein-protein interaction networks</li>
+                        <li>• Time-course treatment effects</li>
+                        <li>• Functional pathway enrichment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="glass-effect mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="text-center">
+                <h4 class="display-font text-xl text-gray-800">Lucas VHH TRAN</h4>
+                <p class="text-gray-600 text-sm mt-2">Biostatistician & Data Scientist</p>
+                <p class="text-gray-600 text-sm">© 2025 Lucas VHH TRAN. Transforming data into insights, one analysis at a time.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleFullscreen() {
+            const iframe = document.getElementById('reportFrame');
+            const isFullscreen = iframe.style.position === 'fixed';
+            
+            if (isFullscreen) {
+                // Exit fullscreen
+                iframe.style.position = '';
+                iframe.style.top = '';
+                iframe.style.left = '';
+                iframe.style.width = '100%';
+                iframe.style.height = '800px';
+                iframe.style.zIndex = '';
+                iframe.style.backgroundColor = '';
+                document.body.style.overflow = '';
+            } else {
+                // Enter fullscreen
+                iframe.style.position = 'fixed';
+                iframe.style.top = '0';
+                iframe.style.left = '0';
+                iframe.style.width = '100vw';
+                iframe.style.height = '100vh';
+                iframe.style.zIndex = '9999';
+                iframe.style.backgroundColor = 'white';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Allow ESC key to exit fullscreen
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const iframe = document.getElementById('reportFrame');
+                if (iframe.style.position === 'fixed') {
+                    toggleFullscreen();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

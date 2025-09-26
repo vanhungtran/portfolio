@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Lucas VHH TRAN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
+            min-height: 100vh;
+        }
+        .display-font { font-family: 'Playfair Display', serif; }
+        .code-font { font-family: 'JetBrains Mono', monospace; }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .article-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .article-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .tag {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .tag:hover {
+            transform: scale(1.1);
+        }
+        .tag.active {
+            background: linear-gradient(135deg, #4299e1, #38b2ac);
+            color: white;
+        }
+        .search-box {
+            transition: all 0.3s ease;
+        }
+        .search-box:focus-within {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(66, 153, 225, 0.2);
+        }
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(135deg, #4299e1, #38b2ac);
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .floating-element {
+            animation: float 8s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+        .article-content {
+            line-height: 1.8;
+        }
+        .article-content h2 {
+            color: #2d3748;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .article-content h3 {
+            color: #4a5568;
+            margin: 1.5rem 0 0.75rem 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .article-content p {
+            margin-bottom: 1rem;
+            color: #4a5568;
+        }
+        .article-content ul, .article-content ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+        .article-content li {
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+        }
+        .article-content blockquote {
+            border-left: 4px solid #4299e1;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #718096;
+            background: rgba(66, 153, 225, 0.05);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-teal-500 rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">📊</span>
+                    </div>
+                    <h1 class="display-font text-xl text-gray-800">Lucas VHH TRAN</h1>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-500 font-medium transition-colors">Portfolio</a>
+                    <a href="projects.html" class="text-gray-700 hover:text-blue-500 font-medium transition-colors">Projects</a>
+                    <a href="blog.html" class="text-blue-600 font-medium">Blog</a>
+                    <a href="CVLucasTRAN.pdf" target="_blank" class="text-gray-700 hover:text-blue-500 font-medium transition-colors flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        CV
+                    </a>
+                </div>
+                <button class="md:hidden p-2 rounded-md text-gray-700 hover:bg-white/20">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-20 pb-12 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <img src="resources/hero-data-science.jpg" alt="Blog" class="w-full h-full object-cover">
+        </div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="floating-element absolute top-20 left-10 text-3xl opacity-60">📝</div>
+            <div class="floating-element absolute top-32 right-20 text-2xl opacity-50" style="animation-delay: -2s;">💡</div>
+            <div class="floating-element absolute bottom-20 left-1/4 text-xl opacity-40" style="animation-delay: -4s;">📚</div>
+            
+            <h2 class="display-font text-5xl md:text-6xl text-gray-800 mb-4">
+                <span class="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
+                    Biostatistics Blog
+                </span>
+            </h2>
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                Insights, methodologies, and applications in biostatistics, clinical research, and medical data science
+            </p>
+            <div class="mt-8">
+                <a href="https://rpubs.com/hung/" target="_blank" class="inline-flex items-center bg-gradient-to-r from-blue-500 to-teal-500 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all hover:scale-105">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                    View My RPubs Publications
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search and Filter Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <div class="glass-effect rounded-2xl p-6">
+            <!-- Search Box -->
+            <div class="search-box mb-6">
+                <div class="relative">
+                    <input type="text" id="searchInput" placeholder="Search articles..." class="w-full p-4 pl-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tag Cloud -->
+            <div class="tag-cloud">
+                <span class="tag text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full active" data-tag="all">All Topics</span>
+                <span class="tag text-xs bg-blue-100 text-blue-600 px-3 py-1 rounded-full" data-tag="biostatistics">Biostatistics</span>
+                <span class="tag text-xs bg-green-100 text-green-600 px-3 py-1 rounded-full" data-tag="clinical-trials">Clinical Trials</span>
+                <span class="tag text-xs bg-purple-100 text-purple-600 px-3 py-1 rounded-full" data-tag="epidemiology">Epidemiology</span>
+                <span class="tag text-xs bg-orange-100 text-orange-600 px-3 py-1 rounded-full" data-tag="survival-analysis">Survival Analysis</span>
+                <span class="tag text-xs bg-red-100 text-red-600 px-3 py-1 rounded-full" data-tag="r">R Programming</span>
+                <span class="tag text-xs bg-teal-100 text-teal-600 px-3 py-1 rounded-full" data-tag="genomics">Genomics</span>
+                <span class="tag text-xs bg-cyan-100 text-cyan-600 px-3 py-1 rounded-full" data-tag="bioinformatics">Bioinformatics</span>
+                <span class="tag text-xs bg-violet-100 text-violet-600 px-3 py-1 rounded-full" data-tag="ai">AI/ML</span>
+                <span class="tag text-xs bg-emerald-100 text-emerald-600 px-3 py-1 rounded-full" data-tag="shiny">Shiny Apps</span>
+                <span class="tag text-xs bg-amber-100 text-amber-600 px-3 py-1 rounded-full" data-tag="dermatology">Dermatology</span>
+                <span class="tag text-xs bg-rose-100 text-rose-600 px-3 py-1 rounded-full" data-tag="deep-learning">Deep Learning</span>
+                <span class="tag text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded-full" data-tag="github">GitHub</span>
+                <span class="tag text-xs bg-pink-100 text-pink-600 px-3 py-1 rounded-full" data-tag="public-health">Public Health</span>
+                <span class="tag text-xs bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full" data-tag="medical-imaging">Medical Imaging</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- RPubs Publications Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+        <div class="glass-effect rounded-3xl p-8">
+            <h3 class="display-font text-3xl text-gray-800 text-center mb-6">Published Work on RPubs</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                        <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                        R Statistical Analysis Reports
+                    </h4>
+                    <p class="text-gray-600 mb-4">
+                        Explore my collection of statistical analysis reports and biostatistics tutorials published on RPubs. 
+                        These publications demonstrate practical applications of statistical methods in real-world datasets.
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex items-start space-x-3">
+                            <span class="text-blue-500 mt-1">📊</span>
+                            <div>
+                                <p class="text-sm font-medium text-gray-800">Clinical Data Analysis</p>
+                                <p class="text-xs text-gray-600">Statistical methods for medical research</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-teal-500 mt-1">🔬</span>
+                            <div>
+                                <p class="text-sm font-medium text-gray-800">Biostatistics Tutorials</p>
+                                <p class="text-xs text-gray-600">Step-by-step statistical analysis guides</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-purple-500 mt-1">📈</span>
+                            <div>
+                                <p class="text-sm font-medium text-gray-800">R Programming Examples</p>
+                                <p class="text-xs text-gray-600">Reproducible research workflows</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="bg-gradient-to-br from-blue-50 to-teal-50 rounded-2xl p-6 mb-4">
+                        <div class="text-4xl mb-4">📚</div>
+                        <h5 class="font-semibold text-gray-800 mb-2">RPubs Portfolio</h5>
+                        <p class="text-sm text-gray-600 mb-4">Interactive R Markdown reports showcasing statistical analysis and data visualization techniques</p>
+                    </div>
+                    <a href="https://rpubs.com/hung/" target="_blank" class="inline-flex items-center bg-gradient-to-r from-blue-500 to-teal-500 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all hover:scale-105">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        Visit RPubs Profile
+                    </a>
+                    <p class="text-xs text-gray-500 mt-2">rpubs.com/hung</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Articles -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+        <h3 class="display-font text-3xl text-gray-800 text-center mb-8">Featured Articles</h3>
+        <div class="splide" id="featuredCarousel">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    <li class="splide__slide">
+                        <div class="article-card glass-effect rounded-2xl p-6 h-full cursor-pointer" data-article="clinical-trial-design" onclick="window.open('https://rpubs.com/hung/', '_blank')">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Clinical Trials</span>
+                                <span class="text-xs text-gray-500">RPubs</span>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-3 text-lg">Statistical Considerations in Clinical Trial Design</h4>
+                            <p class="text-sm text-gray-600 mb-4">Learn essential statistical principles for designing robust clinical trials, including sample size calculation, randomization strategies, and controlling for multiple comparisons in medical research.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-gray-500">Published on RPubs</span>
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                    </svg>
+                                    <span class="text-xs text-blue-600">View Report</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide">
+                        <div class="article-card glass-effect rounded-2xl p-6 h-full cursor-pointer" data-article="survival-analysis" onclick="window.open('https://rpubs.com/hung/', '_blank')">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded-full">Survival Analysis</span>
+                                <span class="text-xs text-gray-500">RPubs</span>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-3 text-lg">Kaplan-Meier and Cox Regression in Medical Research</h4>
+                            <p class="text-sm text-gray-600 mb-4">Master survival analysis techniques for time-to-event data in clinical studies. Learn when to use Kaplan-Meier curves, log-rank tests, and Cox proportional hazards models.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-gray-500">Published on RPubs</span>
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                    </svg>
+                                    <span class="text-xs text-blue-600">View Report</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide">
+                        <div class="article-card glass-effect rounded-2xl p-6 h-full cursor-pointer" data-article="genomic-data-analysis" onclick="window.open('https://rpubs.com/hung/', '_blank')">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs bg-teal-100 text-teal-600 px-2 py-1 rounded-full">Genomics</span>
+                                <span class="text-xs text-gray-500">RPubs</span>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-3 text-lg">Statistical Methods for Genomic Data Analysis</h4>
+                            <p class="text-sm text-gray-600 mb-4">Explore advanced statistical approaches for analyzing high-dimensional genomic data, including GWAS, differential expression analysis, and pathway enrichment methods.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-gray-500">Published on RPubs</span>
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                    </svg>
+                                    <span class="text-xs text-blue-600">View Report</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide">
+                        <div class="article-card glass-effect rounded-2xl p-6 h-full cursor-pointer" data-article="cell-deconvolution-guide" onclick="window.open('https://rpubs.com/hung/1347954', '_blank')">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs bg-teal-100 text-teal-600 px-2 py-1 rounded-full">Bioinformatics</span>
+                                <span class="text-xs text-gray-500">RPubs</span>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-3 text-lg">Comprehensive Guide to Cell Deconvolution with Multiple Methods</h4>
+                            <p class="text-sm text-gray-600 mb-4">Complete tutorial on cell type deconvolution methods for analyzing cellular composition from bulk RNA-seq data. Covers multiple computational approaches, statistical validation, and practical implementation in R.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-gray-500">Published on RPubs</span>
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                    </svg>
+                                    <span class="text-xs text-blue-600">View Report</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide">
+                        <div class="article-card glass-effect rounded-2xl p-6 h-full cursor-pointer" data-article="wgcna-analysis" onclick="window.open('https://rpubs.com/hung/1347947', '_blank')">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Network Analysis</span>
+                                <span class="text-xs text-gray-500">RPubs</span>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-3 text-lg">WGCNA: Weighted Gene Co-expression Network Analysis</h4>
+                            <p class="text-sm text-gray-600 mb-4">Comprehensive tutorial on WGCNA methodology for identifying gene co-expression modules and their relationship with clinical traits. Includes network construction, module identification, and biological interpretation.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-gray-500">Published on RPubs</span>
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                    </svg>
+                                    <span class="text-xs text-blue-600">View Report</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide">
+                        <div class="article-card glass-effect rounded-2xl p-6 h-full cursor-pointer" data-article="llm-faq-book" onclick="window.open('https://bookdown.org/tranhungydhcm/mybook/', '_blank')">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs bg-violet-100 text-violet-600 px-2 py-1 rounded-full">AI/ML</span>
+                                <span class="text-xs text-gray-500">Bookdown</span>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-3 text-lg">Large Language Models - Frequently Asked Questions</h4>
+                            <p class="text-sm text-gray-600 mb-4">Comprehensive e-book covering 100+ LLM interview questions and answers. Topics include RAG, embeddings, fine-tuning, deployment, and agent-based systems with practical insights.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-gray-500">Interactive E-book</span>
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                    </svg>
+                                    <span class="text-xs text-blue-600">Read Book</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide">
+                        <div class="article-card glass-effect rounded-2xl p-6 h-full cursor-pointer" data-article="feature-selection-studio" onclick="window.open('https://vanhungtran.shinyapps.io/FSplus/', '_blank')">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs bg-emerald-100 text-emerald-600 px-2 py-1 rounded-full">Shiny App</span>
+                                <span class="text-xs text-gray-500">Interactive</span>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-3 text-lg">Feature Selection Studio</h4>
+                            <p class="text-sm text-gray-600 mb-4">Interactive Shiny application for comprehensive feature selection analysis. Implements multiple algorithms including Random Forest, Boruta, RFE, and statistical tests with visualization tools.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-gray-500">Live Web App</span>
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                    </svg>
+                                    <span class="text-xs text-blue-600">Launch App</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide">
+                        <div class="article-card glass-effect rounded-2xl p-6 h-full cursor-pointer" data-article="skinomics-analysis" onclick="window.open('https://rpubs.com/hung/1347701', '_blank')">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs bg-pink-100 text-pink-600 px-2 py-1 rounded-full">Skinomics</span>
+                                <span class="text-xs text-gray-500">RPubs</span>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-3 text-lg">Skinomics: Multi-omics Analysis of Skin Data</h4>
+                            <p class="text-sm text-gray-600 mb-4">Advanced multi-omics analysis workflow for skin research data, integrating genomics, transcriptomics, and clinical phenotypes. Features statistical methods for dermatological research applications.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-gray-500">Published on RPubs</span>
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                    </svg>
+                                    <span class="text-xs text-blue-600">View Report</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide">
+                        <div class="article-card glass-effect rounded-2xl p-6 h-full cursor-pointer" data-article="olink-clinical-trial" onclick="window.location.href='olink-report.html'">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Clinical Trials</span>
+                                <span class="text-xs text-gray-500">Interactive Report</span>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-3 text-lg">OLINK Proteomic Analysis: AMD115 Clinical Trial</h4>
+                            <p class="text-sm text-gray-600 mb-4">Comprehensive biostatistical analysis of OLINK proteomics data from AMD115 clinical trial in atopic dermatitis. Features mixed-effects modeling, PCA analysis, and protein interaction networks with 184 protein targets across 5 timepoints.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-gray-500">Interactive HTML Report</span>
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    <span class="text-xs text-blue-600">View Report</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- All Articles -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <h3 class="display-font text-3xl text-gray-800 text-center mb-8">All Articles</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="articlesGrid">
+            <!-- NEW: Large Language Models FAQ -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="llm-faq-book" data-tags="ai,machine-learning,llm,bookdown" onclick="window.open('https://bookdown.org/tranhungydhcm/mybook/', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-violet-100 text-violet-600 px-2 py-1 rounded-full">AI/ML</span>
+                    <span class="text-xs bg-amber-100 text-amber-600 px-2 py-1 rounded-full">Bookdown</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">Large Language Models - Frequently Asked Questions</h4>
+                <p class="text-sm text-gray-600 mb-4">Comprehensive e-book with 100+ LLM interview questions covering RAG, embeddings, fine-tuning, deployment, and agent-based systems. Created with R Markdown and enhanced with AI assistance.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Jan 1, 2025</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">Read E-book</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: Feature Selection Studio -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="feature-selection-studio" data-tags="machine-learning,shiny,feature-selection,r" onclick="window.open('https://vanhungtran.shinyapps.io/FSplus/', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-emerald-100 text-emerald-600 px-2 py-1 rounded-full">Shiny App</span>
+                    <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">ML</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">Feature Selection Studio</h4>
+                <p class="text-sm text-gray-600 mb-4">Interactive web application for comprehensive feature selection analysis. Supports multiple algorithms including Random Forest, Boruta, RFE, and statistical tests with downloadable results.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Live Application</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">Launch App</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: FDA Drug Approvals Dashboard -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="fda-approvals-dashboard" data-tags="shiny,fda,drug-development,pharma" onclick="window.open('https://vanhungtran.shinyapps.io/shiapp/', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Drug Development</span>
+                    <span class="text-xs bg-emerald-100 text-emerald-600 px-2 py-1 rounded-full">Shiny</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">FDA Novel Drug Approvals Dashboard (2015-2025)</h4>
+                <p class="text-sm text-gray-600 mb-4">Interactive dashboard analyzing ten years of FDA drug approval data with filtering by therapeutic area, year, and company. Features approval trends and detailed regulatory insights.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Live Dashboard</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">View Dashboard</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: R Package Guide -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="r-package-guide" data-tags="r,github,package-development,bioinformatics" onclick="window.open('https://rpubs.com/hung/1346006', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-full">Development</span>
+                    <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">R</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">A Bioinformatician's Guide to Creating, Publishing, and Updating an R Package on GitHub</h4>
+                <p class="text-sm text-gray-600 mb-4">Comprehensive tutorial for bioinformaticians on R package development workflow. Covers package creation, documentation, testing, version control, and publishing to GitHub.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Sep 18, 2025</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">View on RPubs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: Deep Learning Dermatology -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="deep-learning-dermatology" data-tags="deep-learning,medical-imaging,dermatology,ai" onclick="window.open('https://rpubs.com/hung/1340183', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded-full">Medical AI</span>
+                    <span class="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Deep Learning</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">An Analytical Overview of Deep Learning Models for Dermatological Image Classification</h4>
+                <p class="text-sm text-gray-600 mb-4">Comprehensive analysis of state-of-the-art deep learning architectures for skin disease classification. Performance comparison, model evaluation, and clinical applications in digital dermatology.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Sep 1, 2025</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">View on RPubs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: RNA-Seq Databases -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="rnaseq-databases" data-tags="bioinformatics,rna-seq,databases,genomics" onclick="window.open('https://rpubs.com/hung/1343528', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-cyan-100 text-cyan-600 px-2 py-1 rounded-full">Bioinformatics</span>
+                    <span class="text-xs bg-teal-100 text-teal-600 px-2 py-1 rounded-full">RNA-seq</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">RNA-Seq Databases: A Comprehensive Resource Guide</h4>
+                <p class="text-sm text-gray-600 mb-4">Curated guide to essential RNA-seq databases and resources for transcriptomic analysis. Covers public repositories, data access, and integration strategies for genomics research.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Sep 11, 2025</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">View on RPubs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: Chronic Hand Eczema -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="hand-eczema-explorer" data-tags="transcriptomics,dermatology,eczema,bioinformatics" onclick="window.open('https://rpubs.com/hung/1346415', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-pink-100 text-pink-600 px-2 py-1 rounded-full">Dermatology</span>
+                    <span class="text-xs bg-cyan-100 text-cyan-600 px-2 py-1 rounded-full">Transcriptomics</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">Chronic Hand Eczema Transcriptome Explorer</h4>
+                <p class="text-sm text-gray-600 mb-4">Interactive transcriptomic analysis of chronic hand eczema samples. Gene expression profiling, pathway analysis, and biomarker identification for understanding disease mechanisms.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Sep 19, 2025</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">View on RPubs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: Basophil-Fibroblast Axis -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="basophil-fibroblast-axis" data-tags="immunology,dermatology,cell-biology,inflammation" onclick="window.open('https://rpubs.com/hung/1346420', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">Immunology</span>
+                    <span class="text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded-full">Cell Biology</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">A Basophil-Fibroblast Axis Fuels Type 2 Skin Inflammation</h4>
+                <p class="text-sm text-gray-600 mb-4">Research analysis exploring the cellular mechanisms of type 2 skin inflammation. Investigation of basophil-fibroblast interactions and their role in inflammatory skin conditions.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Sep 19, 2025</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">View on RPubs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: Atopic Dermatitis Analysis -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="atopic-dermatitis-ad" data-tags="dermatology,atopic-dermatitis,biostatistics,clinical-research" onclick="window.open('https://rpubs.com/hung/1342013', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-pink-100 text-pink-600 px-2 py-1 rounded-full">Dermatology</span>
+                    <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Clinical Research</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">Atopic Dermatitis: Clinical and Statistical Analysis</h4>
+                <p class="text-sm text-gray-600 mb-4">Comprehensive statistical analysis of atopic dermatitis clinical data. Patient demographics, treatment outcomes, and biostatistical modeling for evidence-based dermatology research.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Sep 7, 2025</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">View on RPubs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: WGCNA Analysis -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="wgcna-analysis" data-tags="bioinformatics,genomics,r,network-analysis" onclick="window.open('https://rpubs.com/hung/1347947', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Network Analysis</span>
+                    <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">R</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">WGCNA: Weighted Gene Co-expression Network Analysis</h4>
+                <p class="text-sm text-gray-600 mb-4">Comprehensive tutorial on WGCNA methodology for identifying gene co-expression modules and their relationship with clinical traits. Network construction, module identification, and biological interpretation.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Sep 24, 2025</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">View on RPubs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: Skinomics Analysis -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="skinomics-analysis" data-tags="bioinformatics,genomics,multi-omics,dermatology" onclick="window.open('https://rpubs.com/hung/1347701', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-pink-100 text-pink-600 px-2 py-1 rounded-full">Skinomics</span>
+                    <span class="text-xs bg-teal-100 text-teal-600 px-2 py-1 rounded-full">Multi-omics</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">Skinomics: Multi-omics Analysis of Skin Data</h4>
+                <p class="text-sm text-gray-600 mb-4">Advanced multi-omics analysis workflow for skin research data, integrating genomics, transcriptomics, and clinical phenotypes. Statistical methods for dermatological research applications.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Sep 23, 2025</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">View on RPubs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: GitHub & pkgdown Guide -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="github-pkgdown-guide" data-tags="r,github,package-development,programming" onclick="window.open('https://rpubs.com/hung/1347567', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">Development</span>
+                    <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">R</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">GitHub & pkgdown Guide: R Package Documentation</h4>
+                <p class="text-sm text-gray-600 mb-4">Complete guide to creating professional R package documentation using pkgdown and GitHub Pages. Covers setup, customization, and deployment workflows for reproducible research packages.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Sep 23, 2025</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">View on RPubs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: Cell Deconvolution Guide -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="cell-deconvolution-guide" data-tags="bioinformatics,genomics,r" onclick="window.open('https://rpubs.com/hung/1347954', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-teal-100 text-teal-600 px-2 py-1 rounded-full">Bioinformatics</span>
+                    <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">R</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">Comprehensive Guide to Cell Deconvolution with Multiple Methods</h4>
+                <p class="text-sm text-gray-600 mb-4">Complete tutorial covering computational methods for cell type deconvolution from bulk RNA-seq data. Includes statistical validation, method comparison, and practical R implementation for single-cell analysis.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Sep 24, 2025</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">View on RPubs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 1 -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="meta-analysis-methods" data-tags="biostatistics,epidemiology" onclick="window.open('https://rpubs.com/hung/', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Biostatistics</span>
+                    <span class="text-xs text-gray-500">RPubs</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">Meta-Analysis in Medical Research: Methods and Applications</h4>
+                <p class="text-sm text-gray-600 mb-4">Learn systematic approaches to meta-analysis including fixed and random effects models, heterogeneity assessment, and publication bias detection in medical literature.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Available on RPubs</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">View Report</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 2 -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="longitudinal-data-analysis" data-tags="biostatistics,r" onclick="window.open('https://rpubs.com/hung/', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Biostatistics</span>
+                    <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">R</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">Analyzing Longitudinal Data in Clinical Studies</h4>
+                <p class="text-sm text-gray-600 mb-4">Master mixed-effects models and GEE approaches for analyzing repeated measurements in clinical trials. Handle missing data and correlation structures effectively.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">R Markdown Report</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">View on RPubs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 3 -->
+            <div class="article-card glass-effect rounded-2xl p-6" data-article="epidemiological-study-design" data-tags="epidemiology,public-health">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Epidemiology</span>
+                    <span class="text-xs text-gray-500">12 min read</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">Epidemiological Study Designs: From Cohort to Case-Control</h4>
+                <p class="text-sm text-gray-600 mb-4">Compare different epidemiological study designs, their strengths and limitations. Learn to calculate measures of association and handle confounding variables.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Nov 18, 2024</span>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs text-gray-500">👁️ 1.9k</span>
+                        <span class="text-xs text-gray-500">❤️ 134</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 4 -->
+            <div class="article-card glass-effect rounded-2xl p-6" data-article="biomarker-validation" data-tags="clinical-trials,biostatistics">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Clinical Trials</span>
+                    <span class="text-xs text-gray-500">13 min read</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">Statistical Methods for Biomarker Validation</h4>
+                <p class="text-sm text-gray-600 mb-4">Learn statistical approaches for biomarker discovery and validation including ROC analysis, sensitivity/specificity optimization, and predictive modeling in precision medicine.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Nov 15, 2024</span>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs text-gray-500">👁️ 1.6k</span>
+                        <span class="text-xs text-gray-500">❤️ 121</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 5 -->
+            <div class="article-card glass-effect rounded-2xl p-6" data-article="medical-imaging-statistics" data-tags="medical-imaging,biostatistics">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full">Medical Imaging</span>
+                    <span class="text-xs text-gray-500">15 min read</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">Statistical Analysis of Medical Imaging Data</h4>
+                <p class="text-sm text-gray-600 mb-4">Explore statistical methods for analyzing medical imaging data including image registration, segmentation validation, and radiomics feature analysis in clinical research.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Nov 12, 2024</span>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs text-gray-500">👁️ 1.3k</span>
+                        <span class="text-xs text-gray-500">❤️ 89</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 6 -->
+            <div class="article-card glass-effect rounded-2xl p-6" data-article="public-health-surveillance" data-tags="public-health,epidemiology">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-pink-100 text-pink-600 px-2 py-1 rounded-full">Public Health</span>
+                    <span class="text-xs text-gray-500">11 min read</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">Statistical Methods in Public Health Surveillance</h4>
+                <p class="text-sm text-gray-600 mb-4">Learn statistical approaches for disease surveillance including outbreak detection algorithms, time series analysis for health data, and spatial epidemiology methods.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Nov 8, 2024</span>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs text-gray-500">👁️ 1.7k</span>
+                        <span class="text-xs text-gray-500">❤️ 128</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 7 -->
+            <div class="article-card glass-effect rounded-2xl p-6" data-article="bayesian-clinical-trials" data-tags="clinical-trials,biostatistics">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Clinical Trials</span>
+                    <span class="text-xs text-gray-500">17 min read</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">Bayesian Methods in Clinical Trial Design</h4>
+                <p class="text-sm text-gray-600 mb-4">Explore Bayesian adaptive trial designs, posterior probability calculations, and decision-making frameworks for more efficient clinical research.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Nov 5, 2024</span>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs text-gray-500">👁️ 1.5k</span>
+                        <span class="text-xs text-gray-500">❤️ 134</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 8 -->
+            <div class="article-card glass-effect rounded-2xl p-6" data-article="hypothesis-testing-guide" data-tags="statistics">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Statistics</span>
+                    <span class="text-xs text-gray-500">12 min read</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">Hypothesis Testing: A Practical Guide</h4>
+                <p class="text-sm text-gray-600 mb-4">Master the fundamentals of hypothesis testing including p-values, confidence intervals, and statistical power with practical examples.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Nov 2, 2024</span>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs text-gray-500">👁️ 2.5k</span>
+                        <span class="text-xs text-gray-500">❤️ 167</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 9 -->
+            <div class="article-card glass-effect rounded-2xl p-6" data-article="ensemble-methods" data-tags="machine-learning,python">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Machine Learning</span>
+                    <span class="text-xs text-gray-500">16 min read</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">Ensemble Methods: Bagging and Boosting</h4>
+                <p class="text-sm text-gray-600 mb-4">Deep dive into ensemble methods including Random Forest, Gradient Boosting, and XGBoost. Learn how to combine models for better performance.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Oct 28, 2024</span>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs text-gray-500">👁️ 4.2k</span>
+                        <span class="text-xs text-gray-500">❤️ 289</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: FDA Drug Approvals Post -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="fda-drug-approvals" data-tags="fda,drug-development,shiny,pharma" onclick="window.open('https://lnkd.in/euQhvKkN', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Drug Development</span>
+                    <span class="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Shiny App</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">FDA Novel Drug Approvals 2015-2025</h4>
+                <p class="text-sm text-gray-600 mb-4">Interactive Shiny App analyzing ten years of FDA drug approval data, showing trends in orphan medications, biologics, and breakthrough therapy designations in oncology and rare diseases.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Sep 24, 2025</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">View Dashboard</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: DermNet Deep Learning Post -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="dermnet-deep-learning" data-tags="deep-learning,medical-imaging,ai,dermatology" onclick="window.open('https://lnkd.in/etG5CZr6', '_blank')">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-teal-100 text-teal-600 px-2 py-1 rounded-full">Deep Learning</span>
+                    <span class="text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded-full">Medical AI</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">DermNet Image Analysis with Deep Learning</h4>
+                <p class="text-sm text-gray-600 mb-4">Interactive dashboard comparing 9 leading deep learning models for dermatology image analysis, featuring performance metrics, efficiency trade-offs, and atopic dermatitis classification.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Sep 3, 2025</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">View Analysis</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: OLINK Clinical Trial Report -->
+            <div class="article-card glass-effect rounded-2xl p-6 cursor-pointer" data-article="olink-clinical-trial" data-tags="clinical-trials,olink,biostatistics,atopic-dermatitis" onclick="window.location.href='olink-report.html'">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Clinical Trials</span>
+                    <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">OLINK Analysis</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-3">OLINK Proteomic Analysis: AMD115 Clinical Trial</h4>
+                <p class="text-sm text-gray-600 mb-4">Comprehensive biostatistical analysis of OLINK proteomics data from AMD115 clinical trial in atopic dermatitis patients. Features mixed-effects modeling, PCA analysis, and protein-protein interaction networks.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Sep 26, 2025</span>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <span class="text-xs text-blue-600">View Report</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="glass-effect rounded-3xl p-8 text-center">
+            <h3 class="display-font text-3xl text-gray-800 mb-4">Stay Updated</h3>
+            <p class="text-lg text-gray-600 mb-6">Get the latest data science insights and tutorials delivered to your inbox</p>
+            <form class="flex flex-col md:flex-row gap-4 max-w-md mx-auto">
+                <input type="email" placeholder="Enter your email" class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                <button type="submit" class="bg-gradient-to-r from-blue-500 to-teal-500 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                    Subscribe
+                </button>
+            </form>
+            <p class="text-sm text-gray-500 mt-4">No spam, unsubscribe at any time</p>
+        </div>
+    </section>
+
+    <!-- Article Modal -->
+    <div id="articleModal" class="fixed inset-0 bg-black bg-opacity-75 hidden z-50 overflow-y-auto">
+        <div class="min-h-screen px-4 py-8">
+            <div class="bg-white rounded-2xl max-w-4xl mx-auto">
+                <div class="sticky top-0 bg-white border-b px-8 py-4 flex justify-between items-center rounded-t-2xl">
+                    <div>
+                        <h3 id="modalArticleTitle" class="text-2xl font-bold text-gray-800"></h3>
+                        <div class="flex items-center space-x-4 mt-2">
+                            <span id="modalArticleDate" class="text-sm text-gray-500"></span>
+                            <span id="modalArticleReadTime" class="text-sm text-gray-500"></span>
+                        </div>
+                    </div>
+                    <button id="closeArticleModal" class="text-gray-400 hover:text-gray-600 text-3xl">×</button>
+                </div>
+                <div class="p-8">
+                    <div id="modalArticleContent" class="article-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="glass-effect mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-4">
+                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-teal-500 rounded-full flex items-center justify-center">
+                    <span class="text-white font-bold">📊</span>
+                </div>
+                <h4 class="display-font text-xl text-gray-800">Lucas VHH TRAN</h4>
+            </div>
+            <p class="text-gray-600 text-sm">© 2025 Lucas VHH TRAN. Transforming data into insights, one analysis at a time.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Blog page functionality
+        class BlogPage {
+            constructor() {
+                this.currentTag = 'all';
+                this.searchTerm = '';
+                this.articles = this.initializeArticles();
+                this.init();
+            }
+
+            init() {
+                this.setupSearch();
+                this.setupTags();
+                this.setupArticleCards();
+                this.setupCarousel();
+                this.setupReadingProgress();
+                this.setupNewsletterForm();
+                this.animateElements();
+            }
+
+            initializeArticles() {
+                return {
+                    'feature-engineering': {
+                        title: 'Advanced Feature Engineering Techniques',
+                        date: 'December 15, 2024',
+                        readTime: '8 min read',
+                        tags: ['Machine Learning', 'Python'],
+                        content: `
+                            <h2>Introduction</h2>
+                            <p>Feature engineering is one of the most critical steps in the machine learning pipeline. It can often make the difference between a mediocre model and a highly accurate one. In this article, we'll explore advanced techniques that go beyond basic feature scaling and encoding.</p>
+
+                            <h2>Polynomial Features</h2>
+                            <p>Polynomial features can help capture non-linear relationships in your data. Here's how to implement them:</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                <pre><code>from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import Pipeline
+
+# Create polynomial features
+poly_features = PolynomialFeatures(degree=2, include_bias=False)
+X_poly = poly_features.fit_transform(X)
+
+# Or use in a pipeline
+model = Pipeline([
+    ('poly', PolynomialFeatures(degree=2)),
+    ('linear', LinearRegression())
+])
+model.fit(X, y)</code></pre>
+                            </div>
+
+                            <h2>Interaction Terms</h2>
+                            <p>Interaction terms capture the combined effect of two or more features:</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                <pre><code>import pandas as pd
+import numpy as np
+
+# Create interaction terms
+def create_interaction_terms(df):
+    interactions = pd.DataFrame()
+    for i, col1 in enumerate(df.columns):
+        for col2 in df.columns[i+1:]:
+            interactions[f'{col1}_{col2}_interaction'] = df[col1] * df[col2]
+    return pd.concat([df, interactions], axis=1)
+
+# Apply to your dataset
+X_with_interactions = create_interaction_terms(X)</code></pre>
+                            </div>
+
+                            <h2>Domain-Specific Features</h2>
+                            <p>Creating features based on domain knowledge can significantly improve model performance. For example, in time series data:</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                <pre><code>def create_time_features(df, datetime_col):
+    df = df.copy()
+    df['hour'] = df[datetime_col].dt.hour
+    df['day_of_week'] = df[datetime_col].dt.dayofweek
+    df['month'] = df[datetime_col].dt.month
+    df['quarter'] = df[datetime_col].dt.quarter
+    df['is_weekend'] = df['day_of_week'].isin([5, 6]).astype(int)
+    return df</code></pre>
+                            </div>
+
+                            <h2>Conclusion</h2>
+                            <p>Advanced feature engineering requires creativity and domain knowledge. Always validate your engineered features through cross-validation to ensure they improve model performance without causing overfitting.</p>
+                        `
+                    },
+                    'statistical-tests': {
+                        title: 'Choosing the Right Statistical Test',
+                        date: 'December 10, 2024',
+                        readTime: '12 min read',
+                        tags: ['Statistics', 'R'],
+                        content: `
+                            <h2>Introduction</h2>
+                            <p>Selecting the appropriate statistical test is crucial for valid research conclusions. This guide provides a systematic approach to choosing the right test based on your data and research questions.</p>
+
+                            <h2>Understanding Your Data</h2>
+                            <p>Before choosing a test, you need to understand:</p>
+                            <ul>
+                                <li>Variable types (categorical, continuous, ordinal)</li>
+                                <li>Data distribution (normal, non-normal)</li>
+                                <li>Sample size and independence</li>
+                                <li>Number of groups being compared</li>
+                            </ul>
+
+                            <h2>Decision Tree</h2>
+                            <p>Here's a systematic approach to selecting statistical tests:</p>
+                            
+                            <h3>Comparing Means</h3>
+                            <ul>
+                                <li><strong>One sample:</strong> One-sample t-test</li>
+                                <li><strong>Two independent samples:</strong> Independent t-test or Mann-Whitney U</li>
+                                <li><strong>Two paired samples:</strong> Paired t-test or Wilcoxon signed-rank</li>
+                                <li><strong>More than two groups:</strong> ANOVA or Kruskal-Wallis</li>
+                            </ul>
+
+                            <h3>Comparing Proportions</h3>
+                            <ul>
+                                <li><strong>Chi-square test:</strong> For categorical data</li>
+                                <li><strong>Fisher's exact test:</strong> For small samples</li>
+                                <li><strong>McNemar's test:</strong> For paired categorical data</li>
+                            </ul>
+
+                            <h2>Example in R</h2>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                <pre><code># Check normality
+shapiro.test(data)
+
+# Independent t-test
+t.test(group1, group2, var.equal = TRUE)
+
+# Mann-Whitney U test (non-parametric)
+wilcox.test(group1, group2)
+
+# Chi-square test
+chisq.test(contingency_table)
+
+# ANOVA
+anova_result <- aov(outcome ~ group, data = dataset)
+summary(anova_result)</code></pre>
+                            </div>
+
+                            <h2>Key Considerations</h2>
+                            <blockquote>
+                                "The choice of statistical test depends on your research question, data type, and assumptions about the data distribution. When in doubt, consult with a statistician."
+                            </blockquote>
+
+                            <h2>Conclusion</h2>
+                            <p>Proper test selection is fundamental to valid statistical analysis. Always check assumptions and consider the practical significance of your results, not just statistical significance.</p>
+                        `
+                    },
+                    'deep-learning-intro': {
+                        title: 'Introduction to Neural Networks',
+                        date: 'December 5, 2024',
+                        readTime: '15 min read',
+                        tags: ['Deep Learning', 'Python'],
+                        content: `
+                            <h2>What are Neural Networks?</h2>
+                            <p>Neural networks are computational models inspired by the human brain. They consist of interconnected nodes (neurons) that process information and learn patterns from data.</p>
+
+                            <h2>The Perceptron</h2>
+                            <p>The simplest neural network unit is the perceptron:</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                <pre><code>import numpy as np
+
+class Perceptron:
+    def __init__(self, learning_rate=0.01, n_iterations=1000):
+        self.learning_rate = learning_rate
+        self.n_iterations = n_iterations
+        
+    def fit(self, X, y):
+        n_samples, n_features = X.shape
+        self.weights = np.zeros(n_features + 1)  # +1 for bias
+        
+        for _ in range(self.n_iterations):
+            for idx, x_i in enumerate(X):
+                linear_output = np.dot(x_i, self.weights[1:]) + self.weights[0]
+                y_predicted = self.activation_function(linear_output)
+                
+                update = self.learning_rate * (y[idx] - y_predicted)
+                self.weights[1:] += update * x_i
+                self.weights[0] += update
+    
+    def activation_function(self, x):
+        return np.where(x >= 0, 1, 0)</code></pre>
+                            </div>
+
+                            <h2>Multi-Layer Perceptrons</h2>
+                            <p>Deep neural networks consist of multiple layers:</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                <pre><code>import tensorflow as tf
+from tensorflow.keras import layers, models
+
+# Create a simple neural network
+model = models.Sequential([
+    layers.Dense(64, activation='relu', input_shape=(784,)),
+    layers.Dropout(0.2),
+    layers.Dense(32, activation='relu'),
+    layers.Dense(10, activation='softmax')
+])
+
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+
+# Train the model
+model.fit(X_train, y_train, epochs=10, batch_size=32, validation_split=0.2)</code></pre>
+                            </div>
+
+                            <h2>Activation Functions</h2>
+                            <p>Common activation functions include:</p>
+                            <ul>
+                                <li><strong>ReLU (Rectified Linear Unit):</strong> f(x) = max(0, x)</li>
+                                <li><strong>Sigmoid:</strong> f(x) = 1 / (1 + e^(-x))</li>
+                                <li><strong>Tanh:</strong> f(x) = (e^x - e^(-x)) / (e^x + e^(-x))</li>
+                                <li><strong>Softmax:</strong> Used for multi-class classification</li>
+                            </ul>
+
+                            <h2>Backpropagation</h2>
+                            <p>Backpropagation is the algorithm used to train neural networks:</p>
+                            <ol>
+                                <li>Forward pass: Compute predictions</li>
+                                <li>Calculate loss between predictions and true labels</li>
+                                <li>Backward pass: Compute gradients</li>
+                                <li>Update weights using gradient descent</li>
+                            </ol>
+
+                            <h2>Conclusion</h2>
+                            <p>Neural networks are powerful tools for pattern recognition and prediction. Understanding their fundamentals is essential for anyone working in machine learning and AI.</p>
+                        `
+                    }
+                };
+            }
+
+            setupSearch() {
+                const searchInput = document.getElementById('searchInput');
+                searchInput.addEventListener('input', (e) => {
+                    this.searchTerm = e.target.value.toLowerCase();
+                    this.filterArticles();
+                });
+            }
+
+            setupTags() {
+                const tags = document.querySelectorAll('.tag');
+                tags.forEach(tag => {
+                    tag.addEventListener('click', () => {
+                        // Update active tag
+                        tags.forEach(t => t.classList.remove('active'));
+                        tag.classList.add('active');
+                        
+                        // Filter articles
+                        this.currentTag = tag.dataset.tag;
+                        this.filterArticles();
+                    });
+                });
+            }
+
+            setupArticleCards() {
+                const cards = document.querySelectorAll('.article-card');
+                cards.forEach(card => {
+                    card.addEventListener('click', () => {
+                        const articleId = card.dataset.article;
+                        if (this.articles[articleId]) {
+                            this.openArticleModal(articleId);
+                        }
+                    });
+                });
+            }
+
+            setupCarousel() {
+                const splide = new Splide('#featuredCarousel', {
+                    type: 'loop',
+                    perPage: 3,
+                    perMove: 1,
+                    gap: '2rem',
+                    autoplay: true,
+                    interval: 5000,
+                    breakpoints: {
+                        1024: {
+                            perPage: 2,
+                        },
+                        768: {
+                            perPage: 1,
+                        }
+                    }
+                });
+                
+                splide.mount();
+            }
+
+            setupReadingProgress() {
+                const progressBar = document.querySelector('.reading-progress');
+                
+                window.addEventListener('scroll', () => {
+                    const scrollTop = window.pageYOffset;
+                    const docHeight = document.body.scrollHeight - window.innerHeight;
+                    const scrollPercent = (scrollTop / docHeight) * 100;
+                    progressBar.style.width = scrollPercent + '%';
+                });
+            }
+
+            setupNewsletterForm() {
+                const form = document.querySelector('form');
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const email = form.querySelector('input[type="email"]').value;
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    
+                    submitBtn.textContent = 'Subscribing...';
+                    submitBtn.disabled = true;
+                    
+                    setTimeout(() => {
+                        submitBtn.textContent = 'Subscribed!';
+                        form.reset();
+                        
+                        setTimeout(() => {
+                            submitBtn.textContent = 'Subscribe';
+                            submitBtn.disabled = false;
+                        }, 2000);
+                    }, 1500);
+                });
+            }
+
+            filterArticles() {
+                const cards = document.querySelectorAll('.article-card');
+                
+                cards.forEach(card => {
+                    const tags = card.dataset.tags ? card.dataset.tags.split(',') : [];
+                    const title = card.querySelector('h4').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    
+                    const matchesTag = this.currentTag === 'all' || tags.includes(this.currentTag);
+                    const matchesSearch = this.searchTerm === '' || 
+                                        title.includes(this.searchTerm) || 
+                                        description.includes(this.searchTerm);
+                    
+                    if (matchesTag && matchesSearch) {
+                        card.style.display = 'block';
+                        anime({
+                            targets: card,
+                            opacity: [0, 1],
+                            scale: [0.8, 1],
+                            duration: 600,
+                            easing: 'easeOutElastic(1, .8)'
+                        });
+                    } else {
+                        anime({
+                            targets: card,
+                            opacity: [1, 0],
+                            scale: [1, 0.8],
+                            duration: 300,
+                            complete: () => {
+                                card.style.display = 'none';
+                            }
+                        });
+                    }
+                });
+            }
+
+            openArticleModal(articleId) {
+                const article = this.articles[articleId];
+                if (!article) return;
+
+                const modal = document.getElementById('articleModal');
+                
+                // Update modal content
+                document.getElementById('modalArticleTitle').textContent = article.title;
+                document.getElementById('modalArticleDate').textContent = article.date;
+                document.getElementById('modalArticleReadTime').textContent = article.readTime;
+                document.getElementById('modalArticleContent').innerHTML = article.content;
+
+                // Show modal
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                
+                // Animate modal appearance
+                anime({
+                    targets: modal.querySelector('.bg-white'),
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 400,
+                    easing: 'easeOutElastic(1, .8)'
+                });
+            }
+
+            animateElements() {
+                // Animate article cards
+                anime({
+                    targets: '.article-card',
+                    translateY: [50, 0],
+                    opacity: [0, 1],
+                    delay: anime.stagger(100),
+                    duration: 800,
+                    easing: 'easeOutElastic(1, .8)'
+                });
+
+                // Animate tags
+                anime({
+                    targets: '.tag',
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    delay: anime.stagger(50),
+                    duration: 600,
+                    easing: 'easeOutElastic(1, .8)'
+                });
+
+                // Floating animation for decorative elements
+                anime({
+                    targets: '.floating-element',
+                    translateY: [-10, 10],
+                    rotate: [-2, 2],
+                    duration: 4000,
+                    direction: 'alternate',
+                    loop: true,
+                    easing: 'easeInOutSine'
+                });
+            }
+        }
+
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+
+        // Initialize blog page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new BlogPage();
+            
+            // Setup modal close functionality
+            const closeBtn = document.getElementById('closeArticleModal');
+            const modal = document.getElementById('articleModal');
+            
+            closeBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+            
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
