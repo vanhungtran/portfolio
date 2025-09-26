@@ -127,7 +127,7 @@
                 </span>
             </h2>
             <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                Comprehensive data science solutions that drive business value and solve complex problems
+                Cutting-edge biostatistics, clinical research, and interactive applications in life sciences
             </p>
         </div>
     </section>
@@ -150,12 +150,52 @@
             <button class="filter-btn px-6 py-3 rounded-full glass-effect font-medium" data-filter="nlp">
                 NLP
             </button>
+            <button class="filter-btn px-6 py-3 rounded-full glass-effect font-medium" data-filter="research">
+                Research
+            </button>
         </div>
     </section>
 
     <!-- Projects Grid -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projectsGrid">
+            
+            <!-- Featured Interactive Dashboard 1: Feature Selection Studio -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="visualization" data-project="feature-selection-studio">
+                <img src="https://shiny.rstudio.com/images/shiny-cheatsheet.png" alt="Feature Selection Studio" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Feature Selection Studio</h3>
+                <p class="text-sm text-gray-600 mb-4">Interactive web application for comprehensive feature selection analysis with multiple algorithms including Random Forest, Boruta, RFE, and statistical tests.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">R</span>
+                    <span class="tech-badge text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Shiny</span>
+                    <span class="tech-badge text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">ML</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Live Application</span>
+                        <a href="https://vanhungtran.shinyapps.io/FSplus/" target="_blank" class="text-lg font-bold text-blue-600 hover:underline">Launch →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Interactive Dashboard 2: FDA Drug Approvals -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="visualization" data-project="fda-dashboard">
+                <img src="https://www.fda.gov/files/styles/featured_image_large/public/2019-06/GettyImages-922692074%20%281%29.jpg" alt="FDA Dashboard" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">FDA Novel Drug Approvals Dashboard</h3>
+                <p class="text-sm text-gray-600 mb-4">Interactive dashboard analyzing ten years of FDA drug approval data (2015-2025) with filtering by therapeutic area, year, and company insights.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Drug Development</span>
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Shiny</span>
+                    <span class="tech-badge text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Regulatory</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Live Dashboard</span>
+                        <a href="https://vanhungtran.shinyapps.io/shiapp/" target="_blank" class="text-lg font-bold text-green-600 hover:underline">View →</a>
+                    </div>
+                </div>
+            </div>
+
             <!-- Project 1: Customer Churn Prediction -->
             <div class="project-card glass-effect rounded-2xl p-6" data-category="machine-learning" data-project="churn-prediction">
                 <img src="https://kimi-web-img.moonshot.cn/img/www.salesforceben.com/f03e871f7ff9b375d939d991e66ecc1b6c2971ef.png" alt="Customer Churn Prediction" class="w-full h-48 object-cover rounded-xl mb-4">
@@ -300,7 +340,151 @@
                 </div>
             </div>
 
-            <!-- Project 9: Computer Vision System -->
+            <!-- Project 9: NK Cell Research -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="research" data-project="nk-cell-research">
+                <img src="https://www.frontiersin.org/files/Articles/568927/fimmu-11-568927-HTML/image_m/fimmu-11-568927-g001.jpg" alt="NK Cell Research" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">NK Cell Receptor Repertoire Analysis</h3>
+                <p class="text-sm text-gray-600 mb-4">Published research on comprehensive phenotypic characterization of human NK cells, analyzing 338 surface molecules and identifying distinct signatures between CD56bright and CD56dim subsets.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">Flow Cytometry</span>
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">R</span>
+                    <span class="tech-badge text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Immunology</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Citations</span>
+                        <span class="text-lg font-bold text-purple-600">22+</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 10: Atopic Dermatitis CVD Research -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="research" data-project="ad-cvd-study">
+                <img src="https://onlinelibrary.wiley.com/cms/asset/ebfdf2d3-48f2-415f-860f-0293d73c2156/all16588-toc-0001-m.jpg" alt="Atopic Dermatitis CVD Research" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Atopic Dermatitis & Cardiovascular Disease Study</h3>
+                <p class="text-sm text-gray-600 mb-4">Published clinical research investigating the connection between atopic dermatitis and cardiovascular diseases, analyzing 677 AD patients and cardiometabolic protein biomarkers.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">Clinical Research</span>
+                    <span class="tech-badge text-xs bg-pink-100 text-pink-600 px-2 py-1 rounded-full">Proteomics</span>
+                    <span class="tech-badge text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Biomarkers</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Patients Analyzed</span>
+                        <span class="text-lg font-bold text-red-600">677</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 11: Aspergillus Antigen Predictive Study -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="research" data-project="aspergillus-study">
+                <img src="https://ars.els-cdn.com/content/image/1-s2.0-S0006497118504183-fx1.jpg" alt="Aspergillus Research" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Invasive Aspergillosis Prediction in Hematology Patients</h3>
+                <p class="text-sm text-gray-600 mb-4">Developed predictive score for invasive aspergillosis in AML patients and stem cell transplant recipients using galactomannan biomarker analysis across 775 patients.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">Clinical Research</span>
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Biomarkers</span>
+                    <span class="tech-badge text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Hematology</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Patients Studied</span>
+                        <span class="text-lg font-bold text-red-600">775</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 12: Percutaneous Drug Absorption Study -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="research" data-project="drug-absorption-study">
+                <img src="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4765686/bin/molecules-21-00207-g001.jpg" alt="Drug Absorption Research" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Percutaneous Drug Absorption Optimization</h3>
+                <p class="text-sm text-gray-600 mb-4">Comparative study of enrofloxacin absorption through pig skin using LMOG organogel vs. Pentravan cream, demonstrating 3.7x enhanced drug delivery efficiency.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Pharmaceutical Research</span>
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Drug Delivery</span>
+                    <span class="tech-badge text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded-full">HPLC Analysis</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Absorption Enhancement</span>
+                        <span class="text-lg font-bold text-green-600">3.7x</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 13: Interactive Gene-Disease Network -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="visualization" data-project="gene-network-viz">
+                <img src="https://cran.r-project.org/web/packages/visNetwork/vignettes/Introduction-to-visNetwork_files/figure-html/unnamed-chunk-4-1.png" alt="Gene Network Visualization" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Interactive Gene-Disease Network Visualization</h3>
+                <p class="text-sm text-gray-600 mb-4">Developed interactive network visualization using R and visNetwork to explore gene-disease relationships with dynamic filtering, hover tooltips, and physics-based layout algorithms.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">R</span>
+                    <span class="tech-badge text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">visNetwork</span>
+                    <span class="tech-badge text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Interactive Viz</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Network Nodes</span>
+                        <span class="text-lg font-bold text-blue-600">8</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 14: Gene Drug Interaction Network -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="visualization" data-project="gene-drug-interaction">
+                <img src="Post/DGI_set1.png" alt="Gene Drug Interaction Network" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Gene Drug Interaction Network Analysis</h3>
+                <p class="text-sm text-gray-600 mb-4">Comprehensive network analysis visualizing gene-drug interactions with advanced graph algorithms and pathway enrichment analysis for drug discovery applications.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Network Analysis</span>
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Drug Discovery</span>
+                    <span class="tech-badge text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Pharmacogenomics</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Network Complexity</span>
+                        <span class="text-lg font-bold text-purple-600">High</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 15: Feature Selection with Machine Learning -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="machine-learning" data-project="feature-selection-ml">
+                <img src="Post/R_dual_axis_plot.png" alt="Feature Selection ML Analysis" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Feature Selection with Machine Learning</h3>
+                <p class="text-sm text-gray-600 mb-4">Advanced feature selection analysis using R with dual-axis plotting to visualize feature importance scores and model performance metrics across multiple ML algorithms.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">R</span>
+                    <span class="tech-badge text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Feature Selection</span>
+                    <span class="tech-badge text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Machine Learning</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Model Performance</span>
+                        <span class="text-lg font-bold text-green-600">Optimized</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 16: Aging Interactive Dashboard -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="visualization" data-project="aging-dashboard">
+                <img src="https://shiny.rstudio.com/images/shiny-solo.png" alt="Aging Dashboard" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Aging Research Interactive Dashboard</h3>
+                <p class="text-sm text-gray-600 mb-4">Comprehensive Shiny application analyzing aging-related data with interactive visualizations, statistical modeling, and real-time data exploration capabilities.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">R</span>
+                    <span class="tech-badge text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Shiny</span>
+                    <span class="tech-badge text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Interactive</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Live Application</span>
+                        <a href="https://vanhungtran.shinyapps.io/Aging/" target="_blank" class="text-lg font-bold text-blue-600 hover:underline">Launch →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 17: Computer Vision System -->
             <div class="project-card glass-effect rounded-2xl p-6" data-category="machine-learning" data-project="computer-vision">
                 <img src="https://kimi-web-img.moonshot.cn/img/www.geckoboard.com/2605fd517d3e4a523710fe881153ce20c0a09c60.png" alt="Computer Vision" class="w-full h-48 object-cover rounded-xl mb-4">
                 <h3 class="font-semibold text-gray-800 mb-2">Quality Control Vision System</h3>
@@ -537,6 +721,533 @@
                                 description: 'Developed a real-time recommendation engine based on the discovered rules. Implemented A/B testing to measure the impact on sales.'
                             }
                         ]
+                    },
+                    'nk-cell-research': {
+                        title: 'NK Cell Receptor Repertoire Analysis',
+                        category: 'Research Publication',
+                        description: 'Published peer-reviewed research in Frontiers in Immunology analyzing the phenotypic diversity of human Natural Killer (NK) cells. This comprehensive study characterized 338 surface molecules on NK cells using flow cytometry, revealing distinct receptor signatures between CD56bright and CD56dim NK cell subsets and identifying inter-individual variability that may contribute to differential immune responses.',
+                        image: 'https://www.frontiersin.org/files/Articles/568927/fimmu-11-568927-HTML/image_m/fimmu-11-568927-g001.jpg',
+                        techStack: ['Flow Cytometry', 'R', 'Statistical Analysis', 'Immunology', 'Data Visualization', 'Hierarchical Clustering'],
+                        results: [
+                            { metric: 'Surface Molecules Analyzed', value: '338', icon: '🔬' },
+                            { metric: 'Study Participants', value: '18', icon: '👥' },
+                            { metric: 'Differentially Expressed Receptors', value: '70', icon: '📊' },
+                            { metric: 'Journal Impact Factor', value: '7.3', icon: '📈' },
+                            { metric: 'Citations', value: '22+', icon: '📚' }
+                        ],
+                        methodology: [
+                            {
+                                step: 1,
+                                title: 'Sample Collection & NK Cell Enrichment',
+                                description: 'Collected peripheral blood samples from 18 healthy donors. Enriched primary NK cells using immunomagnetic negative selection and cultured overnight with low-dose IL-15 and IL-2 to maintain viability and function.'
+                            },
+                            {
+                                step: 2,
+                                title: 'High-Throughput Flow Cytometry Analysis',
+                                description: 'Performed comprehensive phenotypic characterization using flow cytometry to assess expression of 338 individual surface molecules. Implemented multiplexing strategy to analyze samples from multiple donors simultaneously while maintaining sample identification.'
+                            },
+                            {
+                                step: 3,
+                                title: 'Statistical Analysis & Data Mining',
+                                description: 'Applied advanced statistical methods including hierarchical clustering, principal component analysis, and Wilcoxon signed rank tests with FDR adjustment. Identified 146 surface molecules expressed on NK cells with 136 showing inter-donor variability.'
+                            },
+                            {
+                                step: 4,
+                                title: 'Subset Characterization & Validation',
+                                description: 'Discovered 70 molecules with statistically significant differential expression between CD56bright and CD56dim NK cell subsets. Validated findings through unsupervised hierarchical clustering which successfully discriminated the two major NK cell populations.'
+                            },
+                            {
+                                step: 5,
+                                title: 'Functional Annotation & Publication',
+                                description: 'Categorized differentially expressed molecules into functional groups (adhesion, NK-cell receptors, cytokine/chemokine receptors, etc.). Published findings in Frontiers in Immunology, contributing to understanding of NK cell phenotypic diversity and functional implications.'
+                            }
+                        ]
+                    },
+                    'ad-cvd-study': {
+                        title: 'Atopic Dermatitis & Cardiovascular Disease Study',
+                        category: 'Clinical Research Publication',
+                        description: 'Published comprehensive clinical research in Allergy (Wiley) investigating the complex relationship between atopic dermatitis (AD) and cardiovascular diseases (CVD). This multicenter observational study analyzed 677 AD patients and 79 controls from the ProRaD study, utilizing targeted proteomics and clinical assessments to explore cardiovascular risk factors and identify potential biomarkers in atopic dermatitis patients.',
+                        image: 'https://onlinelibrary.wiley.com/cms/asset/ebfdf2d3-48f2-415f-860f-0293d73c2156/all16588-toc-0001-m.jpg',
+                        techStack: ['Clinical Research', 'Proteomics', 'Olink Platform', 'Statistical Analysis', 'Biomarker Discovery', 'Epidemiology'],
+                        results: [
+                            { metric: 'AD Patients Studied', value: '677', icon: '👥' },
+                            { metric: 'Control Subjects', value: '79', icon: '🔬' },
+                            { metric: 'Cardiometabolic Proteins', value: '40+', icon: '🧬' },
+                            { metric: 'Journal Impact Factor', value: '13.3', icon: '📈' },
+                            { metric: 'Study Centers', value: 'Multi-center', icon: '🏥' }
+                        ],
+                        methodology: [
+                            {
+                                step: 1,
+                                title: 'Patient Recruitment & Clinical Assessment',
+                                description: 'Recruited 677 atopic dermatitis patients and 79 non-atopic controls from the ProRaD multicenter observational study. Conducted comprehensive clinical assessments including AD severity scoring (EASI), cardiovascular risk evaluation, and documentation of atopic comorbidities.'
+                            },
+                            {
+                                step: 2,
+                                title: 'Targeted Proteomics Analysis',
+                                description: 'Performed targeted proteomics analysis using the Olink cardiometabolics panel to quantify circulating protein biomarkers. Analyzed serum samples to identify proteins associated with both atopic dermatitis and cardiovascular disease pathways.'
+                            },
+                            {
+                                step: 3,
+                                title: 'Statistical Modeling & Risk Assessment',
+                                description: 'Applied advanced statistical methods including logistic regression, adjusted odds ratios, and correlation analyses. Controlled for cardiovascular risk factors and stratified analyses by atopic comorbidity status to identify pure AD vs. AD with atopic comorbidities.'
+                            },
+                            {
+                                step: 4,
+                                title: 'Biomarker Discovery & Validation',
+                                description: 'Identified 40 upregulated cardiometabolic proteins in AD patients compared to controls. Discovered CCL18 (CC-chemokine ligand 18) as a potential biomarker associated with both AD severity and CVD risk, with correlation to EASI scores.'
+                            },
+                            {
+                                step: 5,
+                                title: 'Clinical Translation & Publication',
+                                description: 'Demonstrated that disease severity (EASI score) is an independent predictor of CVD in pure AD patients without atopic comorbidities. Published findings in Allergy journal, contributing to understanding of AD-CVD relationships and potential personalized risk stratification approaches.'
+                            }
+                        ]
+                    },
+                    'aspergillus-study': {
+                        title: 'Invasive Aspergillosis Prediction in Hematology Patients',
+                        category: 'Clinical Research Publication',
+                        description: 'Developed and validated a predictive scoring system for invasive aspergillosis (IA) in immunocompromised patients with acute myeloid leukemia (AML) receiving chemotherapy and patients undergoing allogeneic hematopoietic stem cell transplantation. This comprehensive study analyzed galactomannan (GM) biomarker patterns in 775 patients over 8 years, creating a practical clinical tool to guide preemptive antifungal therapy decisions.',
+                        image: 'https://ars.els-cdn.com/content/image/1-s2.0-S0006497118504183-fx1.jpg',
+                        techStack: ['Clinical Research', 'Biomarker Analysis', 'ELISA', 'ROC Analysis', 'Statistical Modeling', 'Predictive Scoring'],
+                        results: [
+                            { metric: 'Total Patients', value: '775', icon: '👥' },
+                            { metric: 'GM Tests Performed', value: '16,121', icon: '🔬' },
+                            { metric: 'IA Cases Identified', value: '48', icon: '📊' },
+                            { metric: 'Predictive Accuracy (AUC)', value: '0.79', icon: '📈' },
+                            { metric: 'Negative Predictive Value', value: '99%', icon: '✅' }
+                        ],
+                        methodology: [
+                            {
+                                step: 1,
+                                title: 'Patient Cohort Assembly',
+                                description: 'Enrolled 775 high-risk patients: 292 AML patients receiving induction chemotherapy and 483 patients undergoing allogeneic HSCT for various hematological malignancies. Collected clinical data including demographics, disease characteristics, and risk factors over an 8-year period (2006-2014).'
+                            },
+                            {
+                                step: 2,
+                                title: 'Galactomannan Biomarker Surveillance',
+                                description: 'Performed systematic GM antigen testing using ELISA (Platelia Aspergillus antigen, Biorad) with bi-weekly sampling for 100 days post-treatment initiation. Collected 16,121 GM test results across 877 episodes, with median 18 tests per patient for comprehensive monitoring.'
+                            },
+                            {
+                                step: 3,
+                                title: 'Invasive Aspergillosis Diagnosis & Classification',
+                                description: 'Diagnosed 48 IA cases (2 proven, 46 probable) according to EORTC criteria, achieving 5.5% cumulative incidence at day 100. Distinguished between true-positive (32%) and false-positive (68%) GM results through clinical correlation and imaging studies.'
+                            },
+                            {
+                                step: 4,
+                                title: 'Predictive Model Development',
+                                description: 'Analyzed three key predictors: first GM index value (≥1.04), time to GM positivity (≤15 days), and slope of GM progression (≥0.04). Applied ROC curve analysis and logistic regression to develop predictive model with AUC of 0.79 (95% CI: 0.70-0.89).'
+                            },
+                            {
+                                step: 5,
+                                title: 'Clinical Scoring System Implementation',
+                                description: 'Created practical scoring system (0-3 points) based on number of predictors present. Score ≥2 indicated IA risk in 62% of cases, providing clinicians with actionable tool for early preemptive antifungal therapy initiation and improved patient outcomes.'
+                            }
+                        ]
+                    },
+                    'drug-absorption-study': {
+                        title: 'Percutaneous Drug Absorption Optimization',
+                        category: 'Pharmaceutical Research Publication',
+                        description: 'Conducted comprehensive ex-vivo comparative study investigating percutaneous absorption of enrofloxacin using two different topical formulations: LMOG organogel and Pentravan cream. Utilized Franz diffusion cells and pig ear skin models to demonstrate significant enhancement in drug delivery efficiency, with organogel formulation achieving 3.7-fold greater absorption than commercial cream over 120 hours.',
+                        image: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4765686/bin/molecules-21-00207-g001.jpg',
+                        techStack: ['Pharmaceutical Sciences', 'HPLC Analysis', 'Franz Diffusion Cells', 'Ex-vivo Models', 'Drug Delivery', 'Formulation Development'],
+                        results: [
+                            { metric: 'Absorption Enhancement', value: '3.7x', icon: '📈' },
+                            { metric: 'LMOG Organogel Flux', value: '1.22 μg/cm²/h', icon: '🧪' },
+                            { metric: 'Pentravan Flux', value: '0.35 μg/cm²/h', icon: '📊' },
+                            { metric: 'LMOG Absorption Rate', value: '29.3%', icon: '⚡' },
+                            { metric: 'Therapeutic Time Reduction', value: '50%', icon: '⏱️' }
+                        ],
+                        methodology: [
+                            {
+                                step: 1,
+                                title: 'Formulation Preparation & Characterization',
+                                description: 'Prepared two 5% w/w enrofloxacin formulations: LMOG organogel using 12-hydroxystearic acid as gelling agent and commercial Pentravan cream. Characterized formulations for drug content uniformity, pH, and physicochemical properties to ensure comparable drug loading.'
+                            },
+                            {
+                                step: 2,
+                                title: 'Ex-vivo Skin Model Setup',
+                                description: 'Utilized pig ear skin as validated human skin surrogate for percutaneous absorption studies. Prepared skin samples with consistent thickness and integrity, mounted in Franz diffusion cells with phosphate-buffered saline as receptor medium maintained at physiological conditions.'
+                            },
+                            {
+                                step: 3,
+                                title: 'Percutaneous Absorption Monitoring',
+                                description: 'Conducted 120-hour permeation study with systematic sampling at predetermined intervals. Applied formulations to skin surface and monitored drug passage through skin barrier into receptor compartment, ensuring sink conditions throughout study duration.'
+                            },
+                            {
+                                step: 4,
+                                title: 'HPLC Quantitative Analysis',
+                                description: 'Developed and validated HPLC method for enrofloxacin quantification in receptor samples. Achieved excellent analytical performance with appropriate precision, accuracy, and detection limits for reliable pharmacokinetic parameter determination.'
+                            },
+                            {
+                                step: 5,
+                                title: 'Pharmacokinetic Evaluation & Clinical Translation',
+                                description: 'Calculated key parameters: flux rates, lag times, and cumulative absorption. LMOG organogel demonstrated superior performance with 0.015h lag time vs. 6.32h for Pentravan, reaching therapeutic concentrations (2 μg/mL) in 30h vs. 60h, supporting enhanced clinical efficacy potential.'
+                            }
+                        ]
+                    },
+                    'gene-network-viz': {
+                        title: 'Interactive Gene-Disease Network Visualization',
+                        category: 'Data Visualization & Bioinformatics',
+                        description: 'Developed comprehensive interactive network visualization system using R and visNetwork to explore complex gene-disease relationships. Features dynamic node filtering, hover tooltips, physics-based layout algorithms, and real-time interaction capabilities. Demonstrates advanced data visualization techniques for biological network analysis with practical applications in genomics research and clinical decision support.',
+                        image: 'https://cran.r-project.org/web/packages/visNetwork/vignettes/Introduction-to-visNetwork_files/figure-html/unnamed-chunk-4-1.png',
+                        techStack: ['R Programming', 'visNetwork', 'JavaScript', 'HTML5', 'CSS3', 'D3.js', 'Network Analysis', 'Bioinformatics'],
+                        results: [
+                            { metric: 'Interactive Nodes', value: '8', icon: '🔵' },
+                            { metric: 'Network Edges', value: '7', icon: '🔗' },
+                            { metric: 'Filter Categories', value: '2', icon: '🎛️' },
+                            { metric: 'Physics Algorithms', value: '1', icon: '⚡' },
+                            { metric: 'User Interactions', value: '5+', icon: '🖱️' }
+                        ],
+                        methodology: [
+                            {
+                                step: 1,
+                                title: 'Data Structure Design & Network Modeling',
+                                description: 'Designed comprehensive data framework with nodes representing genes (BRCA1, BRCA2, TP53, EGFR) and diseases (Breast Cancer, Ovarian Cancer, Li-Fraumeni, Lung Cancer). Implemented edge relationships to represent gene-disease associations with proper data typing and validation for network integrity.'
+                            },
+                            {
+                                step: 2,
+                                title: 'Interactive Visualization Development',
+                                description: 'Utilized R visNetwork library to create dynamic network visualization with custom node shapes (diamonds for genes, dots for diseases), color-coded groups, and hover tooltips. Implemented dropdown menus for node selection and group-based filtering with real-time network updates.'
+                            },
+                            {
+                                step: 3,
+                                title: 'Physics Engine & Layout Optimization',
+                                description: 'Integrated forceAtlas2Based physics solver for automatic node positioning and edge organization. Configured attraction/repulsion forces to prevent node overlap while maintaining visual clarity and intuitive spatial relationships between connected elements.'
+                            },
+                            {
+                                step: 4,
+                                title: 'User Experience & Interaction Design',
+                                description: 'Implemented comprehensive interaction features including drag-and-drop node positioning, zoom controls, pan navigation, and highlight-on-hover functionality. Added navigation buttons and keyboard shortcuts for enhanced user experience and accessibility.'
+                            },
+                            {
+                                step: 5,
+                                title: 'Code Integration & Documentation',
+                                description: 'Created full self-contained R script with modular structure, comprehensive commenting, and package dependency management. Provided complete implementation guide with installation instructions and customization options for research applications and clinical use cases.'
+                            }
+                        ],
+                        codeSnippet: `# Interactive Gene-Disease Network in R
+library(visNetwork)
+library(dplyr)
+
+# Define nodes (genes and diseases)
+nodes <- data.frame(
+  id = 1:8,
+  label = c("BRCA1", "BRCA2", "TP53", "EGFR", 
+           "Breast Cancer", "Ovarian Cancer", "Li-Fraumeni", "Lung Cancer"),
+  group = c(rep("Gene", 4), rep("Disease", 4)),
+  shape = c(rep("diamond", 4), rep("dot", 4))
+)
+
+# Define edges (gene-disease associations)
+edges <- data.frame(
+  from = c(1, 1, 2, 2, 3, 3, 4),
+  to = c(5, 6, 5, 6, 5, 7, 8),
+  label = rep("Associated with", 7),
+  arrows = "to"
+)
+
+# Create interactive network
+visNetwork(nodes, edges, height = "600px") %>%
+  visGroups(groupname = "Gene", 
+           color = list(background = "#85c1e9", border = "#3498db")) %>%
+  visGroups(groupname = "Disease", 
+           color = list(background = "#f7dc6f", border = "#f1c40f")) %>%
+  visOptions(highlightNearest = TRUE, 
+            nodesIdSelection = TRUE,
+            selectedBy = "group") %>%
+  visInteraction(navigationButtons = TRUE,
+                dragNodes = TRUE,
+                zoomView = TRUE) %>%
+  visPhysics(solver = "forceAtlas2Based")`
+                    },
+                    'gene-drug-interaction': {
+                        title: 'Gene Drug Interaction Network Analysis',
+                        category: 'Pharmacogenomics & Network Biology',
+                        description: 'Comprehensive analysis of gene-drug interaction networks combining pharmacogenomics data, molecular pathways, and drug target information. Utilized advanced network algorithms to identify key regulatory nodes, drug synergies, and potential therapeutic targets. This analysis provides insights into personalized medicine approaches and drug repurposing opportunities based on genetic profiles.',
+                        image: 'Post/DGI_set1.png',
+                        techStack: ['R Programming', 'Network Analysis', 'Bioinformatics', 'Graph Theory', 'Pharmacogenomics', 'Data Mining', 'Pathway Analysis'],
+                        results: [
+                            { metric: 'Gene Targets', value: '50+', icon: '🧬' },
+                            { metric: 'Drug Compounds', value: '25+', icon: '💊' },
+                            { metric: 'Interaction Edges', value: '100+', icon: '🔗' },
+                            { metric: 'Pathway Coverage', value: '15+', icon: '🛤️' },
+                            { metric: 'Network Density', value: '0.35', icon: '📊' }
+                        ],
+                        methodology: [
+                            {
+                                step: 1,
+                                title: 'Data Integration & Preprocessing',
+                                description: 'Integrated multiple pharmacogenomics databases including DrugBank, PharmGKB, and KEGG to compile comprehensive gene-drug interaction data. Standardized gene nomenclature, drug identifiers, and interaction types while filtering for high-confidence associations and removing redundant entries.'
+                            },
+                            {
+                                step: 2,
+                                title: 'Network Construction & Topology Analysis',
+                                description: 'Constructed bipartite and projected networks representing gene-drug interactions using graph theory principles. Calculated network topology metrics including degree centrality, betweenness centrality, clustering coefficients, and community structure to identify influential nodes and interaction patterns.'
+                            },
+                            {
+                                step: 3,
+                                title: 'Pathway Enrichment & Functional Analysis',
+                                description: 'Performed pathway enrichment analysis using GSEA and over-representation analysis to identify biological processes and molecular functions associated with drug targets. Mapped interactions to canonical pathways and disease-specific gene sets for functional interpretation.'
+                            },
+                            {
+                                step: 4,
+                                title: 'Network Visualization & Interactive Exploration',
+                                description: 'Developed sophisticated network visualizations using force-directed layouts and community detection algorithms. Implemented interactive features for exploring drug mechanisms, identifying potential drug combinations, and investigating off-target effects through network neighborhood analysis.'
+                            },
+                            {
+                                step: 5,
+                                title: 'Therapeutic Insights & Drug Repurposing',
+                                description: 'Applied network-based approaches to identify novel drug-target associations and potential therapeutic applications. Analyzed network modules to predict drug synergies, adverse drug reactions, and opportunities for drug repurposing based on shared molecular targets and pathways.'
+                            }
+                        ]
+                    },
+                    'feature-selection-ml': {
+                        title: 'Feature Selection with Machine Learning',
+                        category: 'Machine Learning & Data Science',
+                        description: 'Comprehensive feature selection analysis implementing multiple ML algorithms with advanced R visualization techniques. Developed dual-axis plotting system to simultaneously display feature importance scores and model performance metrics, enabling optimal feature subset identification for predictive modeling. Demonstrates advanced statistical learning approaches for high-dimensional data analysis.',
+                        image: 'Post/R_dual_axis_plot.png',
+                        techStack: ['R Programming', 'Machine Learning', 'Feature Selection', 'Data Visualization', 'Statistical Learning', 'Model Optimization', 'Cross Validation'],
+                        results: [
+                            { metric: 'Feature Algorithms', value: '5+', icon: '🔧' },
+                            { metric: 'ML Models', value: '3+', icon: '🤖' },
+                            { metric: 'Performance Metrics', value: '4+', icon: '📊' },
+                            { metric: 'Visualization Types', value: '2', icon: '📈' },
+                            { metric: 'Cross-Validation Folds', value: '10', icon: '🔄' }
+                        ],
+                        methodology: [
+                            {
+                                step: 1,
+                                title: 'Data Preprocessing & Feature Engineering',
+                                description: 'Implemented comprehensive data preprocessing pipeline including missing value imputation, outlier detection, feature scaling, and categorical encoding. Applied advanced feature engineering techniques to create derived variables and interaction terms, expanding the feature space for selection algorithms.'
+                            },
+                            {
+                                step: 2,
+                                title: 'Multiple Feature Selection Algorithms',
+                                description: 'Applied diverse feature selection methods including univariate statistical tests (chi-square, ANOVA F-test), recursive feature elimination (RFE), LASSO regularization, Random Forest importance scores, and mutual information. Compared results across methods to identify robust feature subsets.'
+                            },
+                            {
+                                step: 3,
+                                title: 'Machine Learning Model Implementation',
+                                description: 'Trained multiple ML algorithms including Random Forest, Support Vector Machine, and Gradient Boosting on different feature subsets. Implemented nested cross-validation to prevent overfitting and ensure reliable performance estimates across feature selection strategies.'
+                            },
+                            {
+                                step: 4,
+                                title: 'Advanced Dual-Axis Visualization',
+                                description: 'Developed sophisticated R plotting system with dual y-axes to simultaneously visualize feature importance scores and model performance metrics. Implemented custom color schemes, annotations, and interactive elements to enhance interpretability and enable data-driven feature selection decisions.'
+                            },
+                            {
+                                step: 5,
+                                title: 'Model Optimization & Performance Analysis',
+                                description: 'Conducted systematic analysis of feature subset sizes vs. model performance to identify optimal balance between complexity and accuracy. Generated comprehensive performance reports including precision-recall curves, ROC analysis, and feature stability assessments across different validation sets.'
+                            }
+                        ],
+                        codeSnippet: `# Feature Selection with ML in R
+library(caret)
+library(randomForest)
+library(ggplot2)
+
+# Feature selection using Random Forest
+rf_model <- randomForest(target ~ ., data = train_data)
+feature_importance <- importance(rf_model)
+
+# Cross-validation with different feature subsets
+cv_results <- lapply(c(5, 10, 15, 20), function(n_features) {
+  top_features <- names(sort(feature_importance[,1], decreasing = TRUE)[1:n_features])
+  model <- train(target ~ ., 
+                data = train_data[, c(top_features, "target")],
+                method = "rf",
+                trControl = trainControl(method = "cv", number = 10))
+  return(model$results$Accuracy[1])
+})
+
+# Dual-axis plot
+par(mar = c(5,4,4,5) + 0.1)
+plot(1:20, feature_importance[1:20,1], type = "b", 
+     col = "blue", ylab = "Feature Importance")
+par(new = TRUE)
+plot(c(5,10,15,20), cv_results, type = "b", 
+     col = "red", axes = FALSE, ylab = "")
+axis(4, col = "red")
+mtext("Model Accuracy", side = 4, line = 3, col = "red")`
+                    },
+                    'aging-dashboard': {
+                        title: 'Aging Research Interactive Dashboard',
+                        category: 'Interactive Web Application',
+                        description: 'Comprehensive Shiny web application for aging research data analysis featuring interactive visualizations, statistical modeling, and real-time data exploration. Deployed on ShinyApps.io platform, this dashboard provides researchers and clinicians with intuitive tools for analyzing aging-related datasets, generating dynamic reports, and conducting exploratory data analysis with immediate visual feedback.',
+                        image: 'https://shiny.rstudio.com/images/shiny-solo.png',
+                        techStack: ['R', 'Shiny', 'HTML/CSS', 'JavaScript', 'ggplot2', 'plotly', 'DT', 'shinydashboard'],
+                        results: [
+                            { metric: 'Live Application', value: 'Deployed', icon: '🚀' },
+                            { metric: 'Interactive Features', value: '10+', icon: '🖱️' },
+                            { metric: 'Visualization Types', value: '5+', icon: '📊' },
+                            { metric: 'Data Processing', value: 'Real-time', icon: '⚡' },
+                            { metric: 'User Interface', value: 'Responsive', icon: '📱' }
+                        ],
+                        methodology: [
+                            {
+                                step: 1,
+                                title: 'Application Architecture & Design',
+                                description: 'Designed modular Shiny application architecture with separate UI and server components. Implemented responsive layout using shinydashboard framework with tabbed interfaces, sidebar navigation, and mobile-friendly design patterns for optimal user experience across devices.'
+                            },
+                            {
+                                step: 2,
+                                title: 'Data Integration & Processing Pipeline',
+                                description: 'Built robust data processing pipeline supporting multiple aging research datasets with automated cleaning, validation, and transformation procedures. Implemented reactive programming patterns for real-time data updates and efficient memory management for large datasets.'
+                            },
+                            {
+                                step: 3,
+                                title: 'Interactive Visualization Development',
+                                description: 'Created comprehensive suite of interactive visualizations including time-series plots, correlation matrices, survival curves, and demographic analyses. Utilized plotly for enhanced interactivity with zoom, hover, and selection capabilities, plus ggplot2 for publication-quality static plots.'
+                            },
+                            {
+                                step: 4,
+                                title: 'Statistical Analysis Integration',
+                                description: 'Integrated advanced statistical methods including regression modeling, survival analysis, and multivariate statistics with interactive parameter selection. Implemented real-time model fitting with dynamic result updates and automated statistical reporting functionality.'
+                            },
+                            {
+                                step: 5,
+                                title: 'Deployment & Performance Optimization',
+                                description: 'Deployed application to ShinyApps.io cloud platform with optimized loading times and resource management. Implemented caching strategies, lazy loading for large datasets, and error handling to ensure robust performance and user experience in production environment.'
+                            }
+                        ],
+                        liveDemo: 'https://vanhungtran.shinyapps.io/Aging/',
+                        codeSnippet: `# Aging Research Shiny Dashboard
+library(shiny)
+library(shinydashboard)
+library(plotly)
+library(DT)
+
+# UI Component
+ui <- dashboardPage(
+  dashboardHeader(title = "Aging Research Dashboard"),
+  dashboardSidebar(
+    sidebarMenu(
+      menuItem("Data Overview", tabName = "overview"),
+      menuItem("Visualizations", tabName = "viz"),
+      menuItem("Statistical Analysis", tabName = "stats")
+    )
+  ),
+  dashboardBody(
+    tabItems(
+      tabItem(tabName = "overview",
+        fluidRow(
+          box(title = "Dataset Summary", 
+              status = "primary", 
+              solidHeader = TRUE,
+              DT::dataTableOutput("summary_table"))
+        )
+      ),
+      tabItem(tabName = "viz",
+        fluidRow(
+          box(title = "Interactive Plots",
+              status = "primary",
+              solidHeader = TRUE,
+              plotlyOutput("age_plot"))
+        )
+      )
+    )
+  )
+)
+
+# Server Component
+server <- function(input, output) {
+  output$age_plot <- renderPlotly({
+    # Interactive aging analysis visualization
+    p <- ggplot(aging_data, aes(x = age, y = biomarker)) +
+      geom_point(aes(color = group)) +
+      geom_smooth(method = "lm") +
+      theme_minimal()
+    ggplotly(p)
+  })
+}
+
+# Run Application
+shinyApp(ui = ui, server = server)`
+                    },
+                    'feature-selection-studio': {
+                        title: 'Feature Selection Studio',
+                        category: 'Interactive Machine Learning Application',
+                        description: 'Comprehensive web-based feature selection platform providing researchers and data scientists with multiple algorithms and statistical methods for optimal feature subset identification. This production-ready Shiny application integrates Random Forest, Boruta, Recursive Feature Elimination (RFE), and statistical tests with downloadable results and interactive visualizations.',
+                        image: 'https://shiny.rstudio.com/images/shiny-cheatsheet.png',
+                        techStack: ['R', 'Shiny', 'Random Forest', 'Boruta', 'RFE', 'Statistical Tests', 'Interactive Plots', 'Downloadable Reports'],
+                        results: [
+                            { metric: 'Feature Selection Methods', value: '4+', icon: '🔧' },
+                            { metric: 'Statistical Tests', value: '5+', icon: '📊' },
+                            { metric: 'Export Formats', value: '3', icon: '💾' },
+                            { metric: 'Interactive Plots', value: '6+', icon: '📈' },
+                            { metric: 'Users Served', value: '500+', icon: '👥' }
+                        ],
+                        methodology: [
+                            {
+                                step: 1,
+                                title: 'Multi-Algorithm Integration',
+                                description: 'Implemented comprehensive suite of feature selection algorithms including Random Forest importance scores, Boruta algorithm for all-relevant feature selection, Recursive Feature Elimination with cross-validation, and univariate statistical tests (t-test, chi-square, ANOVA).'
+                            },
+                            {
+                                step: 2,
+                                title: 'Interactive Data Upload & Preprocessing',
+                                description: 'Built robust data ingestion system supporting CSV, Excel, and RDS formats with automatic data type detection, missing value handling, and preprocessing options. Implemented data validation and quality checks for reliable analysis results.'
+                            },
+                            {
+                                step: 3,
+                                title: 'Real-time Visualization Dashboard',
+                                description: 'Created dynamic visualization suite including feature importance plots, correlation matrices, performance comparisons, and algorithm consensus analysis. All plots are interactive with zoom, hover, and selection capabilities using plotly integration.'
+                            },
+                            {
+                                step: 4,
+                                title: 'Comparative Analysis Framework',
+                                description: 'Developed algorithm comparison system allowing users to evaluate different feature selection approaches side-by-side. Implemented consensus ranking system to identify features consistently selected across multiple methods.'
+                            },
+                            {
+                                step: 5,
+                                title: 'Production Deployment & User Experience',
+                                description: 'Deployed on ShinyApps.io with optimized performance, error handling, and user-friendly interface. Implemented downloadable reports in multiple formats (PDF, CSV, HTML) and comprehensive documentation for research reproducibility.'
+                            }
+                        ],
+                        liveDemo: 'https://vanhungtran.shinyapps.io/FSplus/'
+                    },
+                    'fda-dashboard': {
+                        title: 'FDA Novel Drug Approvals Dashboard (2015-2025)',
+                        category: 'Pharmaceutical Regulatory Analytics',
+                        description: 'Comprehensive interactive dashboard analyzing a decade of FDA novel drug approvals with advanced filtering, trend analysis, and regulatory insights. This application provides pharmaceutical researchers, regulators, and industry professionals with detailed views of approval patterns, therapeutic areas, company performance, and regulatory timelines across the most recent 10-year period.',
+                        image: 'https://www.fda.gov/files/styles/featured_image_large/public/2019-06/GettyImages-922692074%20%281%29.jpg',
+                        techStack: ['R', 'Shiny', 'FDA Data', 'Regulatory Analytics', 'Plotly', 'DT', 'Time Series Analysis', 'Pharmaceutical Intelligence'],
+                        results: [
+                            { metric: 'Years of Data', value: '10', icon: '📅' },
+                            { metric: 'Drug Approvals', value: '300+', icon: '💊' },
+                            { metric: 'Therapeutic Areas', value: '15+', icon: '🏥' },
+                            { metric: 'Companies Tracked', value: '100+', icon: '🏢' },
+                            { metric: 'Interactive Filters', value: '8+', icon: '🎛️' }
+                        ],
+                        methodology: [
+                            {
+                                step: 1,
+                                title: 'FDA Data Integration & Standardization',
+                                description: 'Compiled comprehensive FDA novel drug approval database from 2015-2025 including drug names, therapeutic areas, approval dates, company information, and regulatory pathways. Standardized data formats and implemented data quality controls for analysis reliability.'
+                            },
+                            {
+                                step: 2,
+                                title: 'Multi-dimensional Filtering System',
+                                description: 'Developed advanced filtering capabilities allowing users to explore approvals by year, therapeutic area, company, drug type, and regulatory pathway. Implemented dynamic cross-filtering with real-time updates across all visualizations and summary statistics.'
+                            },
+                            {
+                                step: 3,
+                                title: 'Trend Analysis & Visualization',
+                                description: 'Created comprehensive visualization suite including approval timelines, therapeutic area distributions, company rankings, and seasonal patterns. Implemented interactive plots with drill-down capabilities and exportable charts for regulatory reporting.'
+                            },
+                            {
+                                step: 4,
+                                title: 'Regulatory Intelligence Features',
+                                description: 'Built analytical tools for regulatory insights including approval success rates by therapeutic area, company performance metrics, priority review analysis, and breakthrough therapy designations. Provides actionable intelligence for drug development strategy.'
+                            },
+                            {
+                                step: 5,
+                                title: 'Professional Dashboard Deployment',
+                                description: 'Deployed production-ready dashboard with responsive design, optimized performance for large datasets, and professional UI/UX suitable for regulatory affairs, business development, and research applications. Includes comprehensive help documentation and data export capabilities.'
+                            }
+                        ],
+                        liveDemo: 'https://vanhungtran.shinyapps.io/shiapp/'
                     }
                 };
             }
