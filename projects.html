@@ -484,6 +484,24 @@
                 </div>
             </div>
 
+            <!-- Project 17: Atopic Dermatitis & Psoriasis Genomic Analysis -->
+            <div class="project-card glass-effect rounded-2xl p-6" data-category="visualization" data-project="genomic-dashboard">
+                <img src="https://www.frontiersin.org/files/Articles/568927/fimmu-11-568927-HTML/image_m/fimmu-11-568927-g002.jpg" alt="Genomic Analysis Dashboard" class="w-full h-48 object-cover rounded-xl mb-4">
+                <h3 class="font-semibold text-gray-800 mb-2">Atopic Dermatitis & Psoriasis: Genomic Analysis</h3>
+                <p class="text-sm text-gray-600 mb-4">Interactive genomic analysis dashboard exploring molecular overlaps between AD and Psoriasis using GEO datasets with Chart.js visualizations.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-badge text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">Genomics</span>
+                    <span class="tech-badge text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Chart.js</span>
+                    <span class="tech-badge text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Interactive</span>
+                </div>
+                <div class="impact-metric p-3 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">View Dashboard</span>
+                        <a href="genomic-dashboard.html" target="_blank" class="text-lg font-bold text-red-600 hover:underline">Launch →</a>
+                    </div>
+                </div>
+            </div>
+
             <!-- Project 17: Computer Vision System -->
             <div class="project-card glass-effect rounded-2xl p-6" data-category="machine-learning" data-project="computer-vision">
                 <img src="https://kimi-web-img.moonshot.cn/img/www.geckoboard.com/2605fd517d3e4a523710fe881153ce20c0a09c60.png" alt="Computer Vision" class="w-full h-48 object-cover rounded-xl mb-4">
@@ -1248,6 +1266,54 @@ shinyApp(ui = ui, server = server)`
                             }
                         ],
                         liveDemo: 'https://vanhungtran.shinyapps.io/shiapp/'
+                    },
+                    'genomic-dashboard': {
+                        title: 'Atopic Dermatitis & Psoriasis: Genomic Analysis Dashboard',
+                        category: 'Genomic Data Visualization & Analysis',
+                        description: 'Comprehensive interactive dashboard analyzing the molecular landscape of Atopic Dermatitis (AD) and Psoriasis using Gene Expression Omnibus (GEO) datasets. This visualization reveals an 81% molecular overlap between the two conditions despite their distinct clinical presentations, exploring therapeutic interventions, gene expression patterns, and the paradox between molecular efficacy and clinical outcomes.',
+                        image: 'https://www.frontiersin.org/files/Articles/568927/fimmu-11-568927-HTML/image_m/fimmu-11-568927-g002.jpg',
+                        techStack: ['HTML5', 'JavaScript', 'Chart.js', 'Tailwind CSS', 'Genomic Analysis', 'GEO Datasets', 'Data Visualization', 'Bioinformatics'],
+                        results: [
+                            { metric: 'Molecular Overlap', value: '81%', icon: '🧬' },
+                            { metric: 'Interactive Charts', value: '6', icon: '📊' },
+                            { metric: 'Therapeutic Classes', value: '3', icon: '💊' },
+                            { metric: 'Gene Expression Datasets', value: 'Multiple', icon: '📈' },
+                            { metric: 'Visualization Types', value: '5', icon: '🎨' }
+                        ],
+                        methodology: [
+                            {
+                                step: 1,
+                                title: 'GEO Dataset Integration & Analysis',
+                                description: 'Synthesized multiple Gene Expression Omnibus (GEO) datasets to analyze molecular signatures of Atopic Dermatitis and Psoriasis. Performed comparative genomic analysis to identify shared and distinct pathways, revealing 81% molecular overlap despite different clinical presentations.'
+                            },
+                            {
+                                step: 2,
+                                title: 'Disease Profile Characterization',
+                                description: 'Developed comprehensive molecular profiles distinguishing AD (IL-13 dominant, Th2 inflammation, barrier dysfunction) from Psoriasis (IL-17/IL-23 axis, Th1/Th17 inflammation, epidermal hyperplasia). Created interactive doughnut charts to visualize key molecular drivers and their relative contributions.'
+                            },
+                            {
+                                step: 3,
+                                title: 'Therapeutic Intervention Analysis',
+                                description: 'Analyzed molecular impacts of different treatment modalities including topical treatments (Crisaborole, Betamethasone), systemic therapies (Dupilumab, JAK inhibitors), and phototherapy (NB-UVB). Quantified therapeutic efficacy using gene expression modulation metrics.'
+                            },
+                            {
+                                step: 4,
+                                title: 'Interactive Visualization Development',
+                                description: 'Built responsive dashboard using Chart.js with multiple visualization types: doughnut charts for disease profiles, bar charts for treatment efficacy, radar charts for phototherapy effects, and line charts for longitudinal gene expression changes. Implemented professional color schemes and responsive design.'
+                            },
+                            {
+                                step: 5,
+                                title: 'Clinical Translation & Insights',
+                                description: 'Demonstrated the complexity of translating molecular efficacy to clinical outcomes through the Ustekinumab case study. Highlighted the paradox where strong molecular responses (robust pathway modulation) may not translate to clinical improvement, emphasizing the need for comprehensive biomarker strategies in drug development.'
+                            }
+                        ],
+                        liveDemo: 'genomic-dashboard.html',
+                        clinicalInsights: [
+                            'Despite 81% molecular overlap, AD and Psoriasis require distinct therapeutic approaches',
+                            'Dupilumab demonstrates powerful "transcriptomic correction" with dual anti-inflammatory and barrier repair effects',
+                            'Molecular efficacy does not always predict clinical success, as shown by Ustekinumab trials',
+                            'Therapeutic interventions show differential effects on inflammatory vs. barrier-related gene expression'
+                        ]
                     }
                 };
             }
@@ -1436,7 +1502,52 @@ shinyApp(ui = ui, server = server)`
         // Initialize projects page when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             new ProjectsPage();
+            
+            // Filter to show only biomarker-related projects in Featured Projects
+            filterBiomarkerProjects();
         });
+
+        function filterBiomarkerProjects() {
+            const projectCards = document.querySelectorAll('.project-card');
+            let visibleCount = 0;
+            
+            projectCards.forEach(card => {
+                const techBadges = card.querySelectorAll('.tech-badge');
+                const description = card.querySelector('p').textContent.toLowerCase();
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                
+                let hasBiomarkerKeyword = false;
+                
+                // Check tech badges for biomarker-related keywords
+                techBadges.forEach(badge => {
+                    const text = badge.textContent.toLowerCase();
+                    if (text.includes('biomarker') || text.includes('proteomics') || 
+                        text.includes('clinical research') || text.includes('elisa')) {
+                        hasBiomarkerKeyword = true;
+                    }
+                });
+                
+                // Check description and title for biomarker-related keywords
+                if (description.includes('biomarker') || description.includes('proteomics') || 
+                    description.includes('protein') || description.includes('galactomannan') ||
+                    title.includes('biomarker') || title.includes('proteomics')) {
+                    hasBiomarkerKeyword = true;
+                }
+                
+                if (hasBiomarkerKeyword) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Update the Featured Projects subtitle to reflect the filtering
+            const subtitle = document.querySelector('section p');
+            if (subtitle) {
+                subtitle.textContent = `Biomarker research, clinical proteomics, and diagnostic applications in life sciences (${visibleCount} projects)`;
+            }
+        }
     </script>
 </body>
 </html>

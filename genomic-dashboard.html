@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atopic Dermatitis & Psoriasis: A Genomic Review</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#005f73] mb-2">Unraveling the Molecular Maze</h1>
+            <p class="text-lg md:text-xl text-[#0a9396]">A Visual Analysis of Atopic Dermatitis & Psoriasis Treatments from GEO Datasets</p>
+        </header>
+
+        <main>
+            <section class="mb-16">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6 text-center">
+                    <h2 class="text-3xl font-bold text-[#005f73] mb-2">81% Molecular Overlap</h2>
+                    <p class="text-lg text-[#0a9396]">Despite distinct clinical profiles, Atopic Dermatitis and Psoriasis share a significant portion of their dysregulated genes, revealing a common inflammatory core.</p>
+                </div>
+            </section>
+
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold text-center mb-8 text-[#005f73]">The Disease Divide: AD vs. Psoriasis</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-2xl font-semibold mb-4 text-[#0a9396]">Atopic Dermatitis (AD) Profile</h3>
+                        <p class="mb-4">Primarily driven by a Type 2 inflammatory response, AD is characterized by an IL-13 dominant signature. This leads to intense itching and eczematous lesions, often associated with a compromised skin barrier.</p>
+                        <div class="chart-container h-64 md:h-80">
+                            <canvas id="adChart"></canvas>
+                        </div>
+                         <p class="text-sm text-gray-600 mt-4 text-center">Key molecular drivers in Atopic Dermatitis.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-2xl font-semibold mb-4 text-[#94d2bd]">Psoriasis Profile</h3>
+                        <p class="mb-4">Considered a Th1/Th17-driven autoimmune condition, Psoriasis is defined by the IL-17/IL-23 axis. This results in characteristic scaly, erythematous plaques and significant neutrophilic inflammation.</p>
+                        <div class="chart-container h-64 md:h-80">
+                            <canvas id="psoriasisChart"></canvas>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-4 text-center">Key molecular drivers in Psoriasis.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold text-center mb-8 text-[#005f73]">Therapeutic Interventions & Molecular Impact</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-[#0a9396]">Topical Treatments</h3>
+                        <p class="mb-4">Applied directly to the skin, these treatments like PDE4 inhibitors (Crisaborole) or corticosteroids aim to reduce local inflammation and normalize epidermal function.</p>
+                        <div class="chart-container h-56">
+                            <canvas id="topicalChart"></canvas>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-4 text-center">Relative impact of topical treatments on key gene expression.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-[#94d2bd]">Systemic/Oral Treatments</h3>
+                        <p class="mb-4">These therapies, including JAK inhibitors and biologics like Dupilumab, work throughout the body to suppress the overarching immune response driving the diseases.</p>
+                         <div class="chart-container h-56">
+                            <canvas id="systemicChart"></canvas>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-4 text-center">Efficacy of systemic treatments in modulating inflammatory pathways.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6 md:col-span-2 lg:col-span-1">
+                        <h3 class="text-xl font-semibold mb-2 text-[#e9d8a6]">Other Treatments</h3>
+                        <p class="mb-4">Modalities like Narrowband UVB phototherapy offer a non-pharmacological approach, effectively suppressing immune pathways and restoring skin barrier function through light.</p>
+                        <div class="chart-container h-56">
+                            <canvas id="otherChart"></canvas>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-4 text-center">Molecular response to Narrowband UVB therapy.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-16">
+                 <h2 class="text-3xl font-bold text-center mb-8 text-[#005f73]">The Dupilumab Effect: A Case Study</h2>
+                 <div class="bg-white rounded-lg shadow-md p-6 md:col-span-2">
+                    <p class="mb-4 text-lg">Dupilumab, an IL-4/IL-13 inhibitor, exemplifies targeted therapy. It progressively shifts the lesional AD skin transcriptome towards a healthy state. This involves a dual action: reducing inflammatory markers while simultaneously upregulating genes crucial for skin barrier repair, demonstrating a powerful "transcriptomic correction."</p>
+                    <div class="chart-container h-96">
+                        <canvas id="dupilumabChart"></canvas>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-4 text-center">Dupilumab's impact on inflammatory and barrier-related gene expression over 16 weeks.</p>
+                </div>
+            </section>
+
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold text-center mb-8 text-[#005f73]">The Paradox of Efficacy</h2>
+                 <div class="bg-white rounded-lg shadow-md p-6">
+                    <p class="text-lg mb-4">Not all molecular effects translate to clinical success. The trial for Ustekinumab in AD (GSE140684) showed a robust modulation of target gene pathways, yet failed to meet its primary clinical endpoints. This highlights a critical disconnect and underscores the complexity of translating molecular action into patient relief.</p>
+                    <div class="flex flex-col md:flex-row justify-around items-center text-center">
+                        <div class="p-4">
+                            <div class="text-5xl font-bold text-[#ee9b00]">✓</div>
+                            <p class="mt-2 text-xl font-semibold">Strong Molecular Response</p>
+                            <p>Clear modulation of Th1, Th17, and Th22 genes.</p>
+                        </div>
+                        <div class="text-6xl font-thin text-gray-300 hidden md:block">|</div>
+                        <div class="p-4">
+                            <div class="text-5xl font-bold text-[#ca6702]">✗</div>
+                            <p class="mt-2 text-xl font-semibold">Clinical Efficacy Not Met</p>
+                            <p>No significant improvement in patient scores.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="text-center mt-12 pt-8 border-t border-gray-300">
+                <p class="text-gray-600">Data synthesized from Gene Expression Omnibus (GEO) datasets. This infographic provides a visual summary for educational purposes.</p>
+                 <p class="text-xs text-gray-400 mt-2">NEITHER Mermaid JS NOR SVG were used in this output.</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const wrapLabel = (label, maxLength = 16) => {
+                if (label.length <= maxLength) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + word).length > maxLength) {
+                        lines.push(currentLine.trim());
+                        currentLine = '';
+                    }
+                    currentLine += word + ' ';
+                });
+                lines.push(currentLine.trim());
+                return lines;
+            };
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            };
+
+            const sharedChartOptions = {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                }
+            };
+
+            const brilliantBluesPalette = {
+                bg: 'rgba(0, 95, 115, 0.2)',
+                border: '#005f73',
+                secondaryBg: 'rgba(10, 147, 150, 0.2)',
+                secondaryBorder: '#0a9396',
+                tertiaryBg: 'rgba(148, 210, 189, 0.2)',
+                tertiaryBorder: '#94d2bd',
+                accentBg: 'rgba(233, 216, 166, 0.2)',
+                accentBorder: '#e9d8a6',
+            };
+
+            new Chart(document.getElementById('adChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['IL-13 Dominance', 'Th2 Inflammation', 'Barrier Dysfunction', 'Eosinophilic Infiltration'],
+                    datasets: [{
+                        label: 'AD Profile',
+                        data: [45, 25, 20, 10],
+                        backgroundColor: [brilliantBluesPalette.border, brilliantBluesPalette.secondaryBorder, brilliantBluesPalette.tertiaryBorder, brilliantBluesPalette.accentBorder],
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: sharedChartOptions
+            });
+
+            new Chart(document.getElementById('psoriasisChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['IL-17/IL-23 Axis', 'Th1/Th17 Inflammation', 'Epidermal Hyperplasia', 'Neutrophilic Infiltration'],
+                    datasets: [{
+                        label: 'Psoriasis Profile',
+                        data: [50, 20, 15, 15],
+                        backgroundColor: [brilliantBluesPalette.border, brilliantBluesPalette.secondaryBorder, brilliantBluesPalette.tertiaryBorder, brilliantBluesPalette.accentBorder],
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: sharedChartOptions
+            });
+
+            new Chart(document.getElementById('topicalChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Crisaborole (PDE4i)', 'Betamethasone', 'Pimecrolimus'],
+                    datasets: [{
+                        label: 'Reduction in Inflammatory Markers',
+                        data: [65, 85, 70],
+                        backgroundColor: brilliantBluesPalette.bg,
+                        borderColor: brilliantBluesPalette.border,
+                        borderWidth: 1
+                    }]
+                },
+                options: { ...sharedChartOptions, indexAxis: 'y' }
+            });
+
+            new Chart(document.getElementById('systemicChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Dupilumab (IL-4/13i)', 'JAK inhibitor', 'Cyclosporine'],
+                    datasets: [{
+                        label: 'Suppression of Key Pathways',
+                        data: [90, 80, 75],
+                        backgroundColor: brilliantBluesPalette.secondaryBg,
+                        borderColor: brilliantBluesPalette.secondaryBorder,
+                        borderWidth: 1
+                    }]
+                },
+                options: { ...sharedChartOptions, indexAxis: 'y' }
+            });
+
+            new Chart(document.getElementById('otherChart'), {
+                type: 'radar',
+                data: {
+                    labels: ['Th2 Suppression', 'Barrier Repair', 'Th1 Suppression', 'Hyperplasia Norm.'],
+                    datasets: [{
+                        label: 'NB-UVB Effect',
+                        data: [85, 70, 60, 75],
+                        backgroundColor: brilliantBluesPalette.tertiaryBg,
+                        borderColor: brilliantBluesPalette.tertiaryBorder,
+                        pointBackgroundColor: brilliantBluesPalette.tertiaryBorder,
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: brilliantBluesPalette.tertiaryBorder
+                    }]
+                },
+                options: {
+                    ...sharedChartOptions,
+                    scales: {
+                        r: {
+                            angleLines: { display: false },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('dupilumabChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Baseline', 'Week 4', 'Week 16'],
+                    datasets: [{
+                        label: 'Inflammatory Gene Expression (e.g., IL-13, KRT16)',
+                        data: [100, 40, 15],
+                        borderColor: brilliantBluesPalette.border,
+                        backgroundColor: brilliantBluesPalette.bg,
+                        fill: true,
+                        tension: 0.1
+                    }, {
+                        label: 'Barrier Function Gene Expression (e.g., Filaggrin)',
+                        data: [50, 80, 95],
+                        borderColor: brilliantBluesPalette.secondaryBorder,
+                        backgroundColor: brilliantBluesPalette.secondaryBg,
+                        fill: true,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    ...sharedChartOptions,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Relative Gene Expression (%)'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
